@@ -25,7 +25,7 @@ class Doc extends NativeFunctionDefinition {
 
     @Override
     def run(List parameters) {
-        Preconditions.requireParametersAtLeast(parameters, 1)
+        Preconditions.requireParameters(parameters, 1)
 
         def first = parameters.first()
         if (first instanceof Documented) {

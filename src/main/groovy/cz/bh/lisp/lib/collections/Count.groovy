@@ -19,13 +19,13 @@ class Count extends NativeFunctionDefinition {
 
     @Override
     String getDoc() {
-        return "Returns the number of items in the collection. (count nil) returns 0." +
+        return "[coll] Returns the number of items in the collection. (count nil) returns 0." +
                 " Also works on strings, and Java Collections and Maps."
     }
 
     @Override
     def run(List parameters) {
-        Preconditions.requireParametersAtLeast(parameters, 1)
+        Preconditions.requireParameters(parameters, 1)
         def coll = parameters[0]
 
         if (coll == Context.NIL) {

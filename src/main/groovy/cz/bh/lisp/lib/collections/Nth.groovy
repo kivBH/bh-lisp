@@ -18,14 +18,13 @@ class Nth extends NativeFunctionDefinition {
 
     @Override
     String getDoc() {
-        return "Returns the value at the index. Throws an OutOfBoundsException." +
-                " Works for List and String." +
-                " Usage: (nth coll index)"
+        return "[coll i] Returns the value at the index. Throws an OutOfBoundsException." +
+                " Works for List and String."
     }
 
     @Override
     def run(List parameters) {
-        Preconditions.requireParametersAtLeast(parameters, 2)
+        Preconditions.requireParameters(parameters, 2)
         def coll = parameters[0]
         def index = Preconditions.requireType(parameters[1], Number).intValue()
 

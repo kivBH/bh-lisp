@@ -18,12 +18,12 @@ class Last extends NativeFunctionDefinition {
 
     @Override
     String getDoc() {
-        return "Returns the last item in coll."
+        return "[coll] Returns the last item in coll."
     }
 
     @Override
     def run(List parameters) {
-        Preconditions.requireParametersAtLeast(parameters, 1)
+        Preconditions.requireParameters(parameters, 1)
         def coll = parameters[0]
 
         if (coll instanceof String) {

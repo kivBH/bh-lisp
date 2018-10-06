@@ -19,14 +19,14 @@ class Conj extends NativeFunctionDefinition {
 
     @Override
     String getDoc() {
-        return "Returns a new collection with the xs 'added'." +
+        return "[xs coll] Returns a new collection with the xs 'added'." +
                 " (conj nil item) returns (item). The 'addition' may" +
                 " happen at different 'places' depending on the concrete type."
     }
 
     @Override
     def run(List parameters) {
-        Preconditions.requireParametersAtLeast(parameters, 2)
+        Preconditions.requireParameters(parameters, 2)
         def element = parameters[0]
         def coll = Preconditions.requireType(parameters[1], Collection)
 

@@ -29,8 +29,11 @@ cz.bh.lisp.lib.collections.First
 cz.bh.lisp.lib.collections.Last
 cz.bh.lisp.lib.collections.Nth
 cz.bh.lisp.lib.collections.Count
-cz.bh.lisp.lib.collections.Contains
+cz.bh.lisp.lib.collections.ContainsP
 cz.bh.lisp.lib.collections.Conj
 cz.bh.lisp.lib.collections.Assoc
+cz.bh.lisp.lib.collections.Str
 
 cz.bh.lisp.lib.meta.Doc
+cz.bh.lisp.lib.meta._Class
+cz.bh.lisp.lib.meta.InstanceP

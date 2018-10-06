@@ -9,7 +9,7 @@ import cz.bh.lisp.lib.Preconditions
  * @version 2018-10-06
  * @author Patrik Harag
  */
-class Contains extends NativeFunctionDefinition {
+class ContainsP extends NativeFunctionDefinition {
 
     @Override
     String getSymbol() {
@@ -23,7 +23,7 @@ class Contains extends NativeFunctionDefinition {
 
     @Override
     def run(List parameters) {
-        Preconditions.requireParametersAtLeast(parameters, 2)
+        Preconditions.requireParameters(parameters, 2)
         def coll = parameters[0]
         def key = parameters[1]
 

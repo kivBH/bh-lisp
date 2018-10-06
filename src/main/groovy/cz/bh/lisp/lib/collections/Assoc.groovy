@@ -19,14 +19,14 @@ class Assoc extends NativeFunctionDefinition {
 
     @Override
     String getDoc() {
-        return "When applied to a map, returns a new map that contains the mapping" +
+        return "[coll k v] When applied to a map, returns a new map that contains the mapping" +
                 " of key to val. When applied to a list, returns a new list" +
-                " that contains value v at index k. Usage: (coll k v)"
+                " that contains value v at index k."
     }
 
     @Override
     def run(List parameters) {
-        Preconditions.requireParametersAtLeast(parameters, 3)
+        Preconditions.requireParameters(parameters, 3)
         def coll = parameters[0]
         def key = parameters[1]
         def value = parameters[2]
