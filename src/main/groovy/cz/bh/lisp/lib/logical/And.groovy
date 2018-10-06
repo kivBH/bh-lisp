@@ -1,4 +1,4 @@
-package cz.bh.lisp.lib.logic
+package cz.bh.lisp.lib.logical
 
 import cz.bh.lisp.lib.NativeFunctionDefinition
 import cz.bh.lisp.lib.Preconditions

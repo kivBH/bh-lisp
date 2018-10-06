@@ -2,9 +2,9 @@ cz.bh.lisp.lib.constants.True
 cz.bh.lisp.lib.constants.False
 cz.bh.lisp.lib.constants.Nil
 
-cz.bh.lisp.lib.logic.Not
-cz.bh.lisp.lib.logic.And
-cz.bh.lisp.lib.logic.Or
+cz.bh.lisp.lib.logical.Not
+cz.bh.lisp.lib.logical.And
+cz.bh.lisp.lib.logical.Or
 
 cz.bh.lisp.lib.math.Plus
 cz.bh.lisp.lib.math.Minus
