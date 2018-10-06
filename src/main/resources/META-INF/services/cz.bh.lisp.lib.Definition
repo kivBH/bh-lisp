@@ -16,5 +16,11 @@ cz.bh.lisp.lib.math.GreaterThan
 cz.bh.lisp.lib.math.GreaterThanOrEquals
 cz.bh.lisp.lib.math.LessThan
 cz.bh.lisp.lib.math.LessThanOrEquals
+cz.bh.lisp.lib.math.Max
+cz.bh.lisp.lib.math.Min
+
+cz.bh.lisp.lib.collections._Set
+cz.bh.lisp.lib.collections._HashSet
+cz.bh.lisp.lib.collections._List
 
 cz.bh.lisp.lib.meta.Doc
