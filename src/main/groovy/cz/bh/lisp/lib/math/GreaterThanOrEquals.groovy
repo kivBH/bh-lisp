@@ -17,6 +17,11 @@ class GreaterThanOrEquals extends NativeFunctionDefinition {
     }
 
     @Override
+    String getDoc() {
+        return "Returns non-nil if nums are in monotonically non-increasing order, otherwise false."
+    }
+
+    @Override
     def run(List parameters) {
         Preconditions.requireParametersAtLeast(parameters, 1)
 

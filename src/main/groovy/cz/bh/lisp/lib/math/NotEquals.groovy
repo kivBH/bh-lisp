@@ -17,6 +17,11 @@ class NotEquals extends NativeFunctionDefinition {
     }
 
     @Override
+    String getDoc() {
+        return "Same as (not (= obj1 obj2...))"
+    }
+
+    @Override
     def run(List parameters) {
         Preconditions.requireParametersAtLeast(parameters, 1)
 
