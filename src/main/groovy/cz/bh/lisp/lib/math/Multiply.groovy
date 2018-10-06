@@ -4,23 +4,23 @@ import cz.bh.lisp.lib.NativeFunctionDefinition
 import cz.bh.lisp.lib.Preconditions
 
 /**
- * Defines the {@code +} function.
+ * Defines the {@code *} function.
  *
  * @version 2018-10-06
  * @author Patrik Harag
  */
-class Plus extends NativeFunctionDefinition {
+class Multiply extends NativeFunctionDefinition {
 
     @Override
     String getSymbol() {
-        return "+"
+        return "*"
     }
 
     @Override
     def run(List parameters) {
-        Number acc = BigInteger.ZERO
+        Number acc = BigInteger.ONE
         parameters.each {
-            acc += Preconditions.requireType(it, Number)
+            acc *= Preconditions.requireType(it, Number)
         }
         return acc
     }

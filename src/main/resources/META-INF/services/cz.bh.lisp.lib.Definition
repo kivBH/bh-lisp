@@ -3,3 +3,12 @@ cz.bh.lisp.lib.constants.False
 cz.bh.lisp.lib.constants.Nil
 
 cz.bh.lisp.lib.math.Plus
+cz.bh.lisp.lib.math.Minus
+cz.bh.lisp.lib.math.Multiply
+cz.bh.lisp.lib.math.Divide
+cz.bh.lisp.lib.math.Equals
+cz.bh.lisp.lib.math.NotEquals
+cz.bh.lisp.lib.math.GreaterThan
+cz.bh.lisp.lib.math.GreaterThanOrEquals
+cz.bh.lisp.lib.math.LessThan
+cz.bh.lisp.lib.math.LessThanOrEquals
