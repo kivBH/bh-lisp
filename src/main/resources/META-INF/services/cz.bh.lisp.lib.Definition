@@ -22,5 +22,12 @@ cz.bh.lisp.lib.math.Min
 cz.bh.lisp.lib.collections._Set
 cz.bh.lisp.lib.collections._HashSet
 cz.bh.lisp.lib.collections._List
+cz.bh.lisp.lib.collections.First
+cz.bh.lisp.lib.collections.Last
+cz.bh.lisp.lib.collections.Nth
+cz.bh.lisp.lib.collections.Count
+cz.bh.lisp.lib.collections.Contains
+cz.bh.lisp.lib.collections.Conj
+cz.bh.lisp.lib.collections.Assoc
 
 cz.bh.lisp.lib.meta.Doc
