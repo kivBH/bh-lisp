@@ -10,6 +10,7 @@ cz.bh.lisp.lib.math.Plus
 cz.bh.lisp.lib.math.Minus
 cz.bh.lisp.lib.math.Multiply
 cz.bh.lisp.lib.math.Divide
+cz.bh.lisp.lib.math.Mod
 cz.bh.lisp.lib.math.Equals
 cz.bh.lisp.lib.math.NotEquals
 cz.bh.lisp.lib.math.GreaterThan
@@ -18,6 +19,8 @@ cz.bh.lisp.lib.math.LessThan
 cz.bh.lisp.lib.math.LessThanOrEquals
 cz.bh.lisp.lib.math.Max
 cz.bh.lisp.lib.math.Min
+cz.bh.lisp.lib.math.Inc
+cz.bh.lisp.lib.math.Dec
 
 cz.bh.lisp.lib.collections._Set
 cz.bh.lisp.lib.collections._HashSet
