@@ -1,4 +1,4 @@
-package cz.bh.lisp.parser.lexer.exceptions
+package cz.bh.lisp.parser.exceptions
 
 class EscapeSequenceLexerException extends LexerException {
     EscapeSequenceLexerException(int line) {

@@ -1,4 +1,4 @@
-package cz.bh.lisp.parser.lexer.exceptions
+package cz.bh.lisp.parser.exceptions
 
 class LexerException extends Exception {
     int line

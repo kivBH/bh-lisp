@@ -1,6 +1,6 @@
 package cz.bh.lisp.parser.lexer
 
-import cz.bh.lisp.parser.lexer.exceptions.EscapeSequenceLexerException
+import cz.bh.lisp.parser.exceptions.EscapeSequenceLexerException
 
 class Lexer {
     Reader reader
