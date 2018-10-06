@@ -1,0 +1,29 @@
+package cz.bh.lisp.lib.logic
+
+import cz.bh.lisp.lib.NativeFunctionDefinition
+import cz.bh.lisp.lib.Preconditions
+
+/**
+ * Defines the {@code and} function.
+ *
+ * @version 2018-10-06
+ * @author Patrik Harag
+ */
+class And extends NativeFunctionDefinition {
+
+    @Override
+    String getSymbol() {
+        return "and"
+    }
+
+    @Override
+    def run(List parameters) {
+        Preconditions.requireParametersAtLeast(parameters, 1)
+
+        parameters.each {
+            if (!Preconditions.requireType(it, Boolean))
+                return false
+        }
+        return true
+    }
+}
