@@ -17,6 +17,12 @@ class Divide extends NativeFunctionDefinition {
     }
 
     @Override
+    String getDoc() {
+        return "If no denominators are supplied, returns 1/numerator,\n" +
+                "else returns numerator divided by all of the denominators."
+    }
+
+    @Override
     def run(List parameters) {
         Preconditions.requireParametersAtLeast(parameters, 1)
 

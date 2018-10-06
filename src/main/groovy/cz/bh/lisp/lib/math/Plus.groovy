@@ -17,6 +17,11 @@ class Plus extends NativeFunctionDefinition {
     }
 
     @Override
+    String getDoc() {
+        return "Returns the sum of nums. (+) returns 0."
+    }
+
+    @Override
     def run(List parameters) {
         Number acc = BigInteger.ZERO
         parameters.each {

@@ -17,6 +17,11 @@ class Multiply extends NativeFunctionDefinition {
     }
 
     @Override
+    String getDoc() {
+        return "Returns the product of nums. (*) returns 1."
+    }
+
+    @Override
     def run(List parameters) {
         Number acc = BigInteger.ONE
         parameters.each {

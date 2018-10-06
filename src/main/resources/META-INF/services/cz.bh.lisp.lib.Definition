@@ -16,3 +16,5 @@ cz.bh.lisp.lib.math.GreaterThan
 cz.bh.lisp.lib.math.GreaterThanOrEquals
 cz.bh.lisp.lib.math.LessThan
 cz.bh.lisp.lib.math.LessThanOrEquals
+
+cz.bh.lisp.lib.meta.Doc

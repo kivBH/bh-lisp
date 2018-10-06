@@ -17,6 +17,12 @@ class Minus extends NativeFunctionDefinition {
     }
 
     @Override
+    String getDoc() {
+        return "If no ys are supplied, returns the negation of x, else subtracts\n" +
+                "the ys from x and returns the result."
+    }
+
+    @Override
     def run(List parameters) {
         Preconditions.requireParametersAtLeast(parameters, 1)
 

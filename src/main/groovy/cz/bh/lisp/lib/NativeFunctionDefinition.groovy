@@ -7,7 +7,15 @@ import cz.bh.lisp.interpret.NativeFunction
  * @version 2018-10-06
  * @author Patrik Harag
  */
-abstract class NativeFunctionDefinition extends NativeFunction implements Definition {
+abstract class NativeFunctionDefinition extends NativeFunction implements Definition, Documented {
+
+    @Override
+    abstract String getSymbol()
+
+    @Override
+    String getDoc() {
+        return null
+    }
 
     @Override
     Object getValue() {
