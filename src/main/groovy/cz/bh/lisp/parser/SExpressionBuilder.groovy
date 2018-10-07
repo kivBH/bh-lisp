@@ -5,26 +5,47 @@ import cz.bh.lisp.parser.lexer.Lexer
 import cz.bh.lisp.parser.lexer.Token
 import cz.bh.lisp.parser.lexer.TokenType
 import cz.bh.lisp.parser.sexp.ListNode
+import cz.bh.lisp.parser.sexp.Node
 import cz.bh.lisp.parser.sexp.NodeHandler
 
-class SExpressionBuilder {
+class SExpressionBuilder implements Iterable<Node> {
     Lexer lexer
-    ListNode root
     int counter
+    NodeHandler nodeHandler
 
     SExpressionBuilder(Reader reader) {
         this.lexer = new Lexer(reader)
-        root = new ListNode(0)
-        int counter = 0
+        this.counter = 0
+        this.nodeHandler = new NodeHandler()
     }
 
-    ListNode build() {
-        buildOver(root, counter)
-
-        if (counter != 0) {
-            throw new WrongBracketCounterParserException(counter)
+    Node build() {
+        Token t = lexer.nextToken()
+        if (t == null) {
+            return null
         }
-        return root.list[0]
+
+        switch (t.type) {
+            case TokenType.END_LIST:
+                counter--
+                throw new WrongBracketCounterParserException(counter)
+
+            case TokenType.START_LIST:
+                counter++
+                ListNode root = new ListNode(t.linePosition)
+                buildOver(root, counter - 1)
+                if (counter != 0) {
+                    throw new WrongBracketCounterParserException(counter)
+                }
+                return root
+
+            case TokenType.UNKNOWN:
+                return nodeHandler.handleToken(t)
+
+            default:
+                throw new Exception("Error in build() - " + this.getClass().getName() + " input line: " + t.linePosition
+                                    + System.lineSeparator() + "received TokenType: " + t.type.toString())
+        }
     }
 
     /**
@@ -54,8 +75,39 @@ class SExpressionBuilder {
                     break
 
                 default:
-                    node.list.add(NodeHandler.handleToken(t))
+                    node.list.add(nodeHandler.handleToken(t))
             }
+        }
+    }
+
+    @Override
+    Iterator<Node> iterator() {
+        return new IteratorImpl()
+    }
+
+    private class IteratorImpl implements Iterator<Node> {
+        Node buffNext
+
+        IteratorImpl() {
+            buffNext = null
+        }
+
+        @Override
+        boolean hasNext() {
+            if (buffNext == null) {
+                buffNext = SExpressionBuilder.this.build()
+            }
+            return buffNext != null
+        }
+
+        @Override
+        Node next() {
+            if(hasNext()) {
+                Node ret = buffNext
+                buffNext = null
+                return ret
+            }
+            throw new NoSuchElementException()
         }
     }
 }
