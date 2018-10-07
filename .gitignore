@@ -2,6 +2,9 @@
 # Gradle
 .gradle/
 build/
+gradle/
+gradlew
+gradlew.bat
 
 # IDEA
 .idea/

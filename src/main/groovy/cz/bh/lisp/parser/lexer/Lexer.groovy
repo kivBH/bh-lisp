@@ -1,6 +1,7 @@
 package cz.bh.lisp.parser.lexer
 
 import cz.bh.lisp.parser.exceptions.EscapeSequenceLexerException
+import cz.bh.lisp.parser.exceptions.InputEndsWithinStringLexerException
 
 class Lexer {
     Reader reader
@@ -59,6 +60,11 @@ class Lexer {
                     bufferedToken = new Token(TokenType.END_LIST, ""+c, line)   // samostatny token schovam na pozdeji
                     return createToken(stringBuilder.toString())    // vratim token predchazejici
 
+            // retezec
+                case '"':
+                    bufferedToken = createStringToken() // do bufferu dalsi string token, pokud dojde k vyjimce nevrati soucasny token, ale to odpovida chovani napr. pro (+ (+ 1 2 "v") "jh)
+                    return createToken(stringBuilder.toString())    // vratim token predchazejici
+
             // ukonceni tokenu
                 case ' ':
                 case '\t':
@@ -76,12 +82,7 @@ class Lexer {
 
             // escape sekvence
                 case '\\':
-                    if ((c = reader.read()) >= 0) {
-                        stringBuilder.append(c)
-                    }
-                    else {
-                        throw new EscapeSequenceLexerException(line)
-                    }
+                    stringBuilder.append(getNextForEscapeSequence())
                     break
 
             // znaky tokenu
@@ -89,7 +90,43 @@ class Lexer {
                     stringBuilder.append(c)
             }
         }
-
         return createEndOfStreamToken(stringBuilder.toString())
+    }
+
+    private Token createStringToken() {
+        StringBuilder sb = new StringBuilder()
+        char c
+        while ((c = reader.read()) >= 0) {
+            switch (c) {
+            // konec retezce
+                case '"':
+                    return new Token(TokenType.STRING, sb.toString(), line)
+
+            // escape sekvence
+                case '\\':
+                    sb.append(getNextForEscapeSequence())
+                    break
+
+            // new line
+                case '\n':
+                    line++
+                    sb.append(c)
+                    break
+
+            // znaky
+                default:
+                    sb.append(c)
+            }
+        }
+        throw new InputEndsWithinStringLexerException(line)
+    }
+
+    private char getNextForEscapeSequence() {
+        char c
+        if ((c = reader.read()) >= 0) {
+            return c
+        } else {
+            throw new EscapeSequenceLexerException(line)
+        }
     }
 }
