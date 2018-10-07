@@ -65,8 +65,9 @@ class Interpreter {
         if (node.val.isEmpty()) {
             return Nil.VALUE
         }
-        def first = eval(node.val.first(), context)
-        if (first instanceof Executable) {
+        def firstNode = node.val.first()
+        def evaluatedFirstNode = eval(firstNode, context)
+        if (evaluatedFirstNode instanceof Executable) {
             List<Node> parameters
             if (node.val.size() == 1) {
                 parameters = Collections.emptyList()
@@ -74,14 +75,18 @@ class Interpreter {
                 parameters = node.val.subList(1, node.val.size())
             }
             try {
-                return first.run(this, context, parameters)
+                return evaluatedFirstNode.run(this, context, parameters)
             } catch (ExitException e) {
                 throw e
             } catch (Exception e) {
-                throw new LispException("Exception while evaluating function", node.line, e)
+                String msg = "Exception while evaluating function"
+                if (firstNode instanceof SymbolNode) {
+                    msg += " '$firstNode.val'"
+                }
+                throw new LispException(msg, node.line, e)
             }
         } else {
-            throw new LispException("Function expected, but was: $first", node.line)
+            throw new LispException("Function expected, but was: $evaluatedFirstNode", node.line)
         }
     }
 
