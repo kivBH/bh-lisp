@@ -1,8 +1,8 @@
 package cz.bh.lisp.lib.meta
 
-import cz.bh.lisp.interpreter.Context
 import cz.bh.lisp.lib.Documented
 import cz.bh.lisp.lib.NativeFunction
+import cz.bh.lisp.lib.Nil
 import cz.bh.lisp.lib.Preconditions
 
 /**
@@ -29,9 +29,9 @@ class Doc extends NativeFunction {
 
         def first = parameters.first()
         if (first instanceof Documented) {
-            return first.doc ?: Context.NIL
+            return first.doc ?: Nil.VALUE
         } else {
-            return Context.NIL
+            return Nil.VALUE
         }
     }
 }

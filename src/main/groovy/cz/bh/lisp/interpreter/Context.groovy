@@ -2,12 +2,10 @@ package cz.bh.lisp.interpreter
 
 /**
  *
- * @version 2018-10-06
+ * @version 2018-10-07
  * @author Patrik Harag
  */
 class Context {
-
-    static final def NIL = new Object()
 
     private final Context parentContext
     private final Map<String, Object> variables = [:]

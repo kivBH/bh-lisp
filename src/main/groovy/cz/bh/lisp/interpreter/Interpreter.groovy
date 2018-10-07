@@ -1,6 +1,7 @@
 package cz.bh.lisp.interpreter
 
 import cz.bh.lisp.LispException
+import cz.bh.lisp.lib.Nil
 import cz.bh.lisp.parser.SExpressionBuilder
 import cz.bh.lisp.parser.sexp.DoubleNode
 import cz.bh.lisp.parser.sexp.IntegerNode
@@ -61,7 +62,7 @@ class Interpreter {
 
     private def handleList(Context context, ListNode node) {
         if (node.val.isEmpty()) {
-            return Context.NIL
+            return Nil.VALUE
         }
         def first = eval(node.val.first(), context)
         if (first instanceof Executable) {

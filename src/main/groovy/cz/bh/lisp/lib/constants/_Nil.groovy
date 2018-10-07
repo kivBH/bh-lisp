@@ -1,7 +1,7 @@
 package cz.bh.lisp.lib.constants
 
-import cz.bh.lisp.interpreter.Context
 import cz.bh.lisp.lib.Definition
+import cz.bh.lisp.lib.Nil
 
 /**
  * Defines the {@code nil} constant (aka null).
@@ -9,7 +9,7 @@ import cz.bh.lisp.lib.Definition
  * @version 2018-10-06
  * @author Patrik Harag
  */
-class Nil implements Definition {
+class _Nil implements Definition {
 
     @Override
     String getSymbol() {
@@ -18,6 +18,6 @@ class Nil implements Definition {
 
     @Override
     Object getValue() {
-        return Context.NIL
+        return Nil.VALUE
     }
 }

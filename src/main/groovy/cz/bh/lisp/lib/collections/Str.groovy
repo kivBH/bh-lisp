@@ -1,7 +1,7 @@
 package cz.bh.lisp.lib.collections
 
-import cz.bh.lisp.interpreter.Context
 import cz.bh.lisp.lib.NativeFunction
+import cz.bh.lisp.lib.Nil
 
 /**
  * Defines the {@code str} function.
@@ -27,7 +27,7 @@ class Str extends NativeFunction {
     def run(List parameters) {
         String out = ""
         parameters.each {
-            if (it != Context.NIL) {
+            if (!(it instanceof Nil)) {
                 out += it.toString()
             }
         }

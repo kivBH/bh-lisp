@@ -3,6 +3,7 @@ package cz.bh.lisp.lib.macro
 import cz.bh.lisp.interpreter.Context
 import cz.bh.lisp.interpreter.Interpreter
 import cz.bh.lisp.lib.NativeMacro
+import cz.bh.lisp.lib.Nil
 import cz.bh.lisp.lib.Preconditions
 import cz.bh.lisp.parser.sexp.Node
 
@@ -29,7 +30,7 @@ class If extends NativeMacro {
         Preconditions.requireParameters(parameters, 3)
 
         def test = interpreter.eval(parameters[0], context)
-        if (test != false && test != Context.NIL) {
+        if (test != false && !(test instanceof Nil)) {
             // true branch
             return interpreter.eval(parameters[1], context)
         } else {

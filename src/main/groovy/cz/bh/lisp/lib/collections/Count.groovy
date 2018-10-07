@@ -1,7 +1,7 @@
 package cz.bh.lisp.lib.collections
 
-import cz.bh.lisp.interpreter.Context
 import cz.bh.lisp.lib.NativeFunction
+import cz.bh.lisp.lib.Nil
 import cz.bh.lisp.lib.Preconditions
 
 /**
@@ -28,7 +28,7 @@ class Count extends NativeFunction {
         Preconditions.requireParameters(parameters, 1)
         def coll = parameters[0]
 
-        if (coll == Context.NIL) {
+        if (coll instanceof Nil) {
             return BigInteger.ZERO
         } else if (coll instanceof String) {
             return BigInteger.valueOf(coll.length())

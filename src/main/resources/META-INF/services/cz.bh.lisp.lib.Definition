@@ -1,6 +1,6 @@
 cz.bh.lisp.lib.constants.True
 cz.bh.lisp.lib.constants.False
-cz.bh.lisp.lib.constants.Nil
+cz.bh.lisp.lib.constants._Nil
 
 cz.bh.lisp.lib.logical.Not
 cz.bh.lisp.lib.logical.And
