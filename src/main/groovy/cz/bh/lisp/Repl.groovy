@@ -2,6 +2,7 @@ package cz.bh.lisp
 
 import cz.bh.lisp.interpreter.Interpreter
 import cz.bh.lisp.interpreter.InterpreterListener
+import cz.bh.lisp.lib.ExitException
 import cz.bh.lisp.lib.LibLoader
 
 /**
@@ -23,8 +24,12 @@ abstract class Repl {
 
             @Override
             void onUnhandledException(LispException e) {
-                writer.println ">> ERROR: $e"
-                writer.flush()
+                if (e instanceof ExitException) {
+                    System.exit(e.exitCode)
+                } else {
+                    writer.println ">> ERROR: $e"
+                    writer.flush()
+                }
             }
 
             @Override

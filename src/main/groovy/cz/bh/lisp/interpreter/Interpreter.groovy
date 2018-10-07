@@ -1,6 +1,7 @@
 package cz.bh.lisp.interpreter
 
 import cz.bh.lisp.LispException
+import cz.bh.lisp.lib.ExitException
 import cz.bh.lisp.lib.Nil
 import cz.bh.lisp.parser.SExpressionBuilder
 import cz.bh.lisp.parser.sexp.DoubleNode
@@ -74,6 +75,8 @@ class Interpreter {
             }
             try {
                 return first.run(this, context, parameters)
+            } catch (ExitException e) {
+                throw e
             } catch (Exception e) {
                 throw new LispException("Exception while evaluating function", node.line, e)
             }
