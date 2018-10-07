@@ -10,6 +10,7 @@ class NodeTest {
         Reader r = new StringReader(s)
         SExpressionBuilder b = new SExpressionBuilder(r)
         Node n = b.build()
-        assert n.getVal(String.class) == "+"
+        assert n instanceof SymbolNode
+        assert n.getVal() == "+"
     }
 }

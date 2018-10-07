@@ -1,12 +1,12 @@
 package cz.bh.lisp.parser.sexp
 
-class ListNode extends Node{
+class ListNode extends Node<ArrayList<Node>>{
     ListNode(int line) {
         super(new ArrayList<Node>(), line)
     }
 
     ArrayList<Node> getList() {
-        return (ArrayList<Node>) val
+        return val
     }
 
     @Override
