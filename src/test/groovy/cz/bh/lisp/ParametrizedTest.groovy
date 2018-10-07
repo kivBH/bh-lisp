@@ -41,7 +41,9 @@ class ParametrizedTest {
         def writer = new StringWriter()
         generate(writer)
 
-        Assert.assertEquals(reference.getText("utf-8"), writer.toString())
+        String expected = reference.getText("utf-8").replace('\r', '')
+        String actual = writer.toString().replace('\r', '')
+        Assert.assertEquals(expected, actual)
     }
 
     @Test
