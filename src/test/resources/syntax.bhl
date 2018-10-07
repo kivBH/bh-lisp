@@ -1,0 +1,23 @@
+
+true
+false
+nil
+
+"some text"
+65535
+3.14
+
+(class true)
+(class false)
+(class nil)
+
+(class "some text")
+(class 65535)
+(class 3.14)
+
+5.65.1
+xxx
+
+()
+(())
+(((5)))

@@ -19,7 +19,7 @@ class ParametrizedTest {
     @Parameterized.Parameters(name = "{0}")
     static Collection<Object[]> data() {
         def tests = [
-                "literals",
+                "syntax",
                 "math",
         ]
 
