@@ -37,3 +37,5 @@ cz.bh.lisp.lib.collections.Str
 cz.bh.lisp.lib.meta.Doc
 cz.bh.lisp.lib.meta._Class
 cz.bh.lisp.lib.meta.InstanceP
+
+cz.bh.lisp.lib.macro.If
