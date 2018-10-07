@@ -39,12 +39,8 @@ class SExpressionBuilder implements Iterable<Node> {
                 }
                 return root
 
-            case TokenType.UNKNOWN:
-                return nodeHandler.handleToken(t)
-
             default:
-                throw new Exception("Error in build() - " + this.getClass().getName() + " input line: " + t.linePosition
-                                    + System.lineSeparator() + "received TokenType: " + t.type.toString())
+                return nodeHandler.handleToken(t)
         }
     }
 
