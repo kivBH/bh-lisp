@@ -1,6 +1,6 @@
 package cz.bh.lisp.lib.collections
 
-import cz.bh.lisp.lib.NativeFunctionDefinition
+import cz.bh.lisp.lib.NativeFunction
 import cz.bh.lisp.lib.Preconditions
 
 /**
@@ -9,7 +9,7 @@ import cz.bh.lisp.lib.Preconditions
  * @version 2018-10-06
  * @author Patrik Harag
  */
-class ContainsP extends NativeFunctionDefinition {
+class ContainsP extends NativeFunction {
 
     @Override
     String getSymbol() {

@@ -1,7 +1,7 @@
 package cz.bh.lisp.lib.collections
 
 import cz.bh.lisp.interpreter.Context
-import cz.bh.lisp.lib.NativeFunctionDefinition
+import cz.bh.lisp.lib.NativeFunction
 
 /**
  * Defines the {@code str} function.
@@ -9,7 +9,7 @@ import cz.bh.lisp.lib.NativeFunctionDefinition
  * @version 2018-10-06
  * @author Patrik Harag
  */
-class Str extends NativeFunctionDefinition {
+class Str extends NativeFunction {
 
     @Override
     String getSymbol() {

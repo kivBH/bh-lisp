@@ -1,6 +1,6 @@
 package cz.bh.lisp.lib.collections
 
-import cz.bh.lisp.lib.NativeFunctionDefinition
+import cz.bh.lisp.lib.NativeFunction
 
 /**
  * Defines the {@code hash-set} function.
@@ -8,7 +8,7 @@ import cz.bh.lisp.lib.NativeFunctionDefinition
  * @version 2018-10-06
  * @author Patrik Harag
  */
-class _HashSet extends NativeFunctionDefinition {
+class _HashSet extends NativeFunction {
 
     @Override
     String getSymbol() {

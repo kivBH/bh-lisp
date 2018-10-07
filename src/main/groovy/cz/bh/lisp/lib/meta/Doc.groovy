@@ -2,7 +2,7 @@ package cz.bh.lisp.lib.meta
 
 import cz.bh.lisp.interpreter.Context
 import cz.bh.lisp.lib.Documented
-import cz.bh.lisp.lib.NativeFunctionDefinition
+import cz.bh.lisp.lib.NativeFunction
 import cz.bh.lisp.lib.Preconditions
 
 /**
@@ -11,7 +11,7 @@ import cz.bh.lisp.lib.Preconditions
  * @version 2018-10-06
  * @author Patrik Harag
  */
-class Doc extends NativeFunctionDefinition {
+class Doc extends NativeFunction {
 
     @Override
     String getSymbol() {
