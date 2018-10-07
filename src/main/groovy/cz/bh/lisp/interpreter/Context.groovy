@@ -1,4 +1,4 @@
-package cz.bh.lisp.interpret
+package cz.bh.lisp.interpreter
 
 /**
  *

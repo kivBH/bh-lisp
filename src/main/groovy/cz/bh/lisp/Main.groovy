@@ -1,6 +1,7 @@
 package cz.bh.lisp
 
-import cz.bh.lisp.interpret.Interpreter
+import cz.bh.lisp.interpreter.Interpreter
+import cz.bh.lisp.interpreter.InterpreterListener
 import cz.bh.lisp.lib.LibLoader
 
 /**
@@ -13,8 +14,21 @@ class Main {
     static void main(String... args) {
         println "BH Lisp REPL"
 
-        def interpreter = new Interpreter(LibLoader.createGlobalContext(), {
-            println ">> $it"
+        def interpreter = new Interpreter(LibLoader.createGlobalContext(), new InterpreterListener() {
+            @Override
+            void onResult(Object result) {
+                println ">> $result"
+            }
+
+            @Override
+            void onUnhandledException(LispException e) {
+                println ">> ERROR: $e"
+            }
+
+            @Override
+            void onUnhandledError(Exception e) {
+                e.printStackTrace()
+            }
         })
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in))

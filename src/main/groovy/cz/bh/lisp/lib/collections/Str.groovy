@@ -1,6 +1,6 @@
 package cz.bh.lisp.lib.collections
 
-import cz.bh.lisp.interpret.Context
+import cz.bh.lisp.interpreter.Context
 import cz.bh.lisp.lib.NativeFunctionDefinition
 
 /**

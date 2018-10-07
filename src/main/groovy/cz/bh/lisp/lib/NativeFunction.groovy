@@ -1,6 +1,6 @@
 package cz.bh.lisp.lib
 
-import cz.bh.lisp.interpret.SimpleFunction
+import cz.bh.lisp.interpreter.SimpleFunction
 
 /**
  *

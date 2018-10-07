@@ -1,5 +1,6 @@
-package cz.bh.lisp.interpret
+package cz.bh.lisp.interpreter
 
+import cz.bh.lisp.LispException
 import cz.bh.lisp.parser.SExpressionBuilder
 import cz.bh.lisp.parser.sexp.DoubleNode
 import cz.bh.lisp.parser.sexp.IntegerNode
@@ -7,8 +8,6 @@ import cz.bh.lisp.parser.sexp.ListNode
 import cz.bh.lisp.parser.sexp.Node
 import cz.bh.lisp.parser.sexp.StringNode
 import cz.bh.lisp.parser.sexp.SymbolNode
-
-import java.util.function.Consumer
 
 /**
  *
@@ -18,11 +17,11 @@ import java.util.function.Consumer
 class Interpreter {
 
     private final Context globalContext
-    private final Consumer consumer
+    private final InterpreterListener listener
 
-    Interpreter(Context globalContext, Consumer consumer) {
+    Interpreter(Context globalContext, InterpreterListener listener) {
         this.globalContext = globalContext
-        this.consumer = consumer
+        this.listener = listener
     }
 
     void eval(String sourceCode) {
@@ -31,9 +30,17 @@ class Interpreter {
 
     void eval(Reader sourceCode) {
         def builder = new SExpressionBuilder(sourceCode)
-        builder.each {
-            def result = eval(it, globalContext)
-            consumer.accept(result)
+        def iterator = builder.iterator()
+
+        while (iterator.hasNext()) {
+            try {
+                def result = eval(iterator.next(), globalContext)
+                listener.onResult(result)
+            } catch (LispException e) {
+                listener.onUnhandledException(e)
+            } catch (Exception e) {
+                listener.onUnhandledError(e)
+            }
         }
     }
 
@@ -64,9 +71,13 @@ class Interpreter {
             } else {
                 parameters = node.val.subList(1, node.val.size())
             }
-            return first.run(this, context, parameters)
+            try {
+                return first.run(this, context, parameters)
+            } catch (Exception e) {
+                throw new LispException("Exception while evaluating function", node.line, e)
+            }
         } else {
-            throw new RuntimeException("Function expected, but was: " + first)
+            throw new LispException("Function expected, but was: $first", node.line)
         }
     }
 
@@ -75,7 +86,7 @@ class Interpreter {
         if (value != null) {
             return value
         } else {
-            throw new RuntimeException("Symbol not defined: '$node.val'")
+            throw new LispException("Symbol not defined: '$node.val'", node.line)
         }
     }
 

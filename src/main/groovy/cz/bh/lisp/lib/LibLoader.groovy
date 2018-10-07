@@ -1,6 +1,6 @@
 package cz.bh.lisp.lib
 
-import cz.bh.lisp.interpret.Context
+import cz.bh.lisp.interpreter.Context
 
 /**
  *
