@@ -18,7 +18,7 @@ class Divide extends NativeFunction {
 
     @Override
     String getDoc() {
-        return "If no denominators are supplied, returns 1/numerator," +
+        return "[n d*] If no denominators are supplied, returns 1/numerator," +
                 " else returns numerator divided by all of the denominators."
     }
 

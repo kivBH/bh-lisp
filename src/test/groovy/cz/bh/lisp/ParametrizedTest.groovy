@@ -21,6 +21,7 @@ class ParametrizedTest {
         def tests = [
                 "syntax",
                 "math",
+                "conditionals",
         ]
 
         tests.collect {

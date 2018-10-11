@@ -18,7 +18,7 @@ class Max extends NativeFunction {
 
     @Override
     String getDoc() {
-        return "Returns the greatest of the nums."
+        return "[n+] Returns the greatest of the nums."
     }
 
     @Override

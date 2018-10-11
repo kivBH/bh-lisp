@@ -18,7 +18,7 @@ class GreaterThanOrEquals extends NativeFunction {
 
     @Override
     String getDoc() {
-        return "Returns non-nil if nums are in monotonically non-increasing order, otherwise false."
+        return "[n+] Returns non-nil if nums are in monotonically non-increasing order, otherwise false."
     }
 
     @Override

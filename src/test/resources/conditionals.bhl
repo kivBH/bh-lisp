@@ -1,0 +1,9 @@
+
+(doc if)
+(if)
+(if true)
+(if true "T")
+(if true "T" "F")
+(if false "T" "F")
+(if (not (= 1 1)) "T" "F")
+(if nil "T" "F")

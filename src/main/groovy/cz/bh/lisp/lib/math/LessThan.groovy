@@ -18,7 +18,7 @@ class LessThan extends NativeFunction {
 
     @Override
     String getDoc() {
-        return "Returns non-nil if nums are in monotonically increasing order, otherwise false."
+        return "[n+] Returns non-nil if nums are in monotonically increasing order, otherwise false."
     }
 
     @Override

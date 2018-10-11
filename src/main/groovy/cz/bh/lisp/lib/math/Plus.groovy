@@ -18,7 +18,7 @@ class Plus extends NativeFunction {
 
     @Override
     String getDoc() {
-        return "Returns the sum of nums. (+) returns 0."
+        return "[n*] Returns the sum of nums. (+) returns 0."
     }
 
     @Override

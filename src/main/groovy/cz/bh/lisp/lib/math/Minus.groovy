@@ -18,7 +18,7 @@ class Minus extends NativeFunction {
 
     @Override
     String getDoc() {
-        return "If no ys are supplied, returns the negation of x, else subtracts" +
+        return "[x ys*] If no ys are supplied, returns the negation of x, else subtracts" +
                 " the ys from x and returns the result."
     }
 

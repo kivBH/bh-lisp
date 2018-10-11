@@ -18,7 +18,7 @@ class Multiply extends NativeFunction {
 
     @Override
     String getDoc() {
-        return "Returns the product of nums. (*) returns 1."
+        return "[n*] Returns the product of nums. (*) returns 1."
     }
 
     @Override

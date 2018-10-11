@@ -18,7 +18,7 @@ class Equals extends NativeFunction {
 
     @Override
     String getDoc() {
-        return "Equality. Returns true if x equals y, false if not. Same as" +
+        return "[x y+] Equality. Returns true if x equals y, false if not. Same as" +
                 " Java x.equals(y) except it also works for nil."
     }
 

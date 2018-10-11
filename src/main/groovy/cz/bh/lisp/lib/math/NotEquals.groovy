@@ -18,7 +18,7 @@ class NotEquals extends NativeFunction {
 
     @Override
     String getDoc() {
-        return "Same as (not (= obj1 obj2...))"
+        return "[x y+] Same as (not (= x y...))"
     }
 
     @Override

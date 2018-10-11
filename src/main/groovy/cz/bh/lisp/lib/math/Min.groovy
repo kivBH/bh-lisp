@@ -18,7 +18,7 @@ class Min extends NativeFunction {
 
     @Override
     String getDoc() {
-        return "Returns the least of the nums."
+        return "[n+] Returns the least of the nums."
     }
 
     @Override
