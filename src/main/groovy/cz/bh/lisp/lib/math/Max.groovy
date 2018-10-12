@@ -25,7 +25,7 @@ class Max extends NativeFunction {
     def run(List parameters) {
         Preconditions.requireParametersAtLeast(parameters, 1)
         Number temp = Preconditions.requireType(parameters.first(), Number)
-        parameters.subList(1, parameters.size()).each {
+        parameters.drop(1).each {
             Number n = Preconditions.requireType(it, Number)
             if (n > temp) {
                 temp = n

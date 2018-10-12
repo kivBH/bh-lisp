@@ -31,7 +31,7 @@ class Divide extends NativeFunction {
             return BigInteger.ONE / first
         } else {
             Number acc = first
-            parameters.subList(1, parameters.size()).each {
+            parameters.drop(1).each {
                 acc /= Preconditions.requireType(it, Number)
             }
             return acc

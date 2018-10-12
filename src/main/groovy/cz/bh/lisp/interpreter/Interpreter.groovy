@@ -72,7 +72,7 @@ class Interpreter {
             if (node.val.size() == 1) {
                 parameters = Collections.emptyList()
             } else {
-                parameters = node.val.subList(1, node.val.size())
+                parameters = node.val.drop(1)
             }
             try {
                 return evaluatedFirstNode.run(this, context, parameters)
