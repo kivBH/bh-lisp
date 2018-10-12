@@ -2,9 +2,10 @@ cz.bh.lisp.lib.constants.True
 cz.bh.lisp.lib.constants.False
 cz.bh.lisp.lib.constants._Nil
 
-cz.bh.lisp.lib.logical.Not
-cz.bh.lisp.lib.logical.And
-cz.bh.lisp.lib.logical.Or
+cz.bh.lisp.lib.conditionals.Not
+cz.bh.lisp.lib.conditionals.And
+cz.bh.lisp.lib.conditionals.Or
+cz.bh.lisp.lib.conditionals.If
 
 cz.bh.lisp.lib.math.Plus
 cz.bh.lisp.lib.math.Minus
@@ -38,5 +39,3 @@ cz.bh.lisp.lib.meta.Doc
 cz.bh.lisp.lib.meta.Exit
 cz.bh.lisp.lib.meta._Class
 cz.bh.lisp.lib.meta.InstanceP
-
-cz.bh.lisp.lib.macro.If

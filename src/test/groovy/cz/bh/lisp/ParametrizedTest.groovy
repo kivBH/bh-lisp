@@ -1,7 +1,6 @@
 package cz.bh.lisp
 
 import org.junit.Assert
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -22,6 +21,7 @@ class ParametrizedTest {
                 "syntax",
                 "math",
                 "conditionals",
+                "collections",
         ]
 
         tests.collect {
@@ -41,22 +41,14 @@ class ParametrizedTest {
     @Test
     void compare() {
         def writer = new StringWriter()
-        generate(writer)
+        generate(source, writer)
 
         String expected = reference.getText("utf-8").replace('\r', '')
         String actual = writer.toString().replace('\r', '')
         Assert.assertEquals(expected, actual)
     }
 
-    @Test
-    @Ignore
-    void generate() {
-        reference.withWriter("utf-8") { writer ->
-            generate(writer)
-        }
-    }
-
-    void generate(Writer writer) {
+    static void generate(File source, Writer writer) {
         // note: we don't want buffered stream
         def inputStream = new FileInputStream(source)
         try {
@@ -65,6 +57,16 @@ class ParametrizedTest {
             repl.start(reader, writer)
         } finally {
             inputStream.close()
+        }
+    }
+
+    static void main(String... args) {
+        data().each {
+            def source = it[0] as File
+            def reference = it[1] as File
+            reference.withWriter("utf-8") { writer ->
+                generate(source, writer)
+            }
         }
     }
 }

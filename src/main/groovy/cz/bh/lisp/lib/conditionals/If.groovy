@@ -1,4 +1,4 @@
-package cz.bh.lisp.lib.macro
+package cz.bh.lisp.lib.conditionals
 
 import cz.bh.lisp.interpreter.Context
 import cz.bh.lisp.interpreter.Interpreter
@@ -10,7 +10,7 @@ import cz.bh.lisp.parser.sexp.Node
 /**
  * Defines the {@code if} macro.
  *
- * @version 2018-10-07
+ * @version 2018-10-12
  * @author Patrik Harag
  */
 class If extends NativeMacro {

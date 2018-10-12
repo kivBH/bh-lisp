@@ -1,4 +1,4 @@
-package cz.bh.lisp.lib.logical
+package cz.bh.lisp.lib.conditionals
 
 import cz.bh.lisp.lib.NativeFunction
 import cz.bh.lisp.lib.Preconditions
@@ -6,7 +6,7 @@ import cz.bh.lisp.lib.Preconditions
 /**
  * Defines the {@code not} function.
  *
- * @version 2018-10-06
+ * @version 2018-10-12
  * @author Patrik Harag
  */
 class Not extends NativeFunction {
@@ -14,6 +14,11 @@ class Not extends NativeFunction {
     @Override
     String getSymbol() {
         return "not"
+    }
+
+    @Override
+    String getDoc() {
+        return "[b] Performs logical not."
     }
 
     @Override

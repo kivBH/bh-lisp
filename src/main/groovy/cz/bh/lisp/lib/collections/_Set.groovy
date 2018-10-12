@@ -18,12 +18,12 @@ class _Set extends NativeFunction {
 
     @Override
     String getDoc() {
-        return "Returns a set of the distinct elements of coll."
+        return "[coll] Returns a set of the distinct elements of coll."
     }
 
     @Override
     def run(List parameters) {
-        Preconditions.requireParametersAtLeast(parameters, 1)
+        Preconditions.requireParameters(parameters, 1)
         def coll = Preconditions.requireType(parameters.first(), Collection)
         return new HashSet<>(coll)
     }

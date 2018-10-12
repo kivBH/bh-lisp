@@ -17,7 +17,7 @@ class _List extends NativeFunction {
 
     @Override
     String getDoc() {
-        return "Creates a new list containing the items."
+        return "[i*] Creates a new list containing the items."
     }
 
     @Override

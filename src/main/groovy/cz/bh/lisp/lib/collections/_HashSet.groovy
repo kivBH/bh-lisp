@@ -17,7 +17,7 @@ class _HashSet extends NativeFunction {
 
     @Override
     String getDoc() {
-        return "Returns a new hash set with supplied keys."
+        return "[i*] Returns a new hash set with supplied keys."
     }
 
     @Override

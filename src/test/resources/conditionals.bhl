@@ -1,4 +1,21 @@
 
+(doc not)
+(not true)
+(not false)
+(not 1)
+
+(doc and)
+(and)
+(and true true true)
+(and true true false)
+(and 1)
+
+(doc or)
+(or)
+(or true true true)
+(or true true false)
+(or 1)
+
 (doc if)
 (if)
 (if true)
