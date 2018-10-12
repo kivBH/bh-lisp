@@ -39,3 +39,5 @@ cz.bh.lisp.lib.meta.Doc
 cz.bh.lisp.lib.meta.Exit
 cz.bh.lisp.lib.meta._Class
 cz.bh.lisp.lib.meta.InstanceP
+cz.bh.lisp.lib.meta.JavaNew
+cz.bh.lisp.lib.meta.JavaCall

@@ -1,0 +1,11 @@
+
+(doc .)
+(. length "test")
+(. substring "hello world" 6)
+(. hashCode (list "a" "b" "c"))
+(. hashcode (list "a" "b" "c"))
+(. clear (list "a" "b" "c"))
+
+(doc new)
+(new (class (list)) (hash-set 1 2 3 3))
+(class (new (class (list)) (hash-set 1 2 3 3)))

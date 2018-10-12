@@ -22,6 +22,7 @@ class ParametrizedTest {
                 "math",
                 "conditionals",
                 "collections",
+                "java-interop",
         ]
 
         tests.collect {
