@@ -1,0 +1,8 @@
+
+(doc do)
+(do)
+(do 1)
+(+ (do (println 1) 1 2 3) 10)
+(do
+    (println "LOG: Computing...")
+    (+ 1 1))

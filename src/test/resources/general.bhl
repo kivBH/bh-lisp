@@ -26,3 +26,9 @@ xxx
 (class "some text")
 (class 65535)
 (class 3.14)
+
+(doc println)
+(println "Hello world!")
+
+(doc print)
+(print "Hello world!" "\n")

@@ -4,36 +4,38 @@ import cz.bh.lisp.interpreter.Interpreter
 import cz.bh.lisp.interpreter.InterpreterListener
 import cz.bh.lisp.lib.ExitException
 import cz.bh.lisp.lib.LibLoader
+import cz.bh.lisp.parser.sexp.Node
 
 /**
  *
- * @version 2018-10-07
+ * @version 2018-10-13
  * @author Patrik Harag
  */
-class FileRepl extends Repl {
+class FileRepl {
 
-    boolean lastIsNewLine = true
-    boolean newLineNeeded = false
+    private boolean lastWasNewLine = true
+    private boolean newLineNeeded = false
 
-    synchronized void start(Reader reader, Writer writer) {
-        def interpreter = createInterpreter(writer)
-        interpreter.eval(wrapReader(reader, writer))
+    synchronized void start(Reader reader, PrintStream out) {
+        def interpreter = createInterpreter(out)
+        interpreter.eval(wrapReader(reader, out))
     }
 
-    private Reader wrapReader(Reader reader, Writer writer) {
+    private Reader wrapReader(Reader reader, PrintStream out) {
         // writes the loaded characters to the output
         new Reader() {
             @Override
             int read(char[] cbuf, int off, int len) throws IOException {
                 def result = reader.read(cbuf, off, len)
 
-                lastIsNewLine = cbuf[off + len - 1] == ('\n' as char)
-                if (!lastIsNewLine && newLineNeeded) {
+                String next = new String(cbuf, off, len)
+                lastWasNewLine = next.endsWith('\n')
+                if (!lastWasNewLine && newLineNeeded) {
                     newLineNeeded = false
-                    writer.write("\n")
+                    out.print('\n')
                 }
-                writer.write(cbuf, off, len)
-                writer.flush()
+                out.print(next)
+                out.flush()
 
                 return result
             }
@@ -45,12 +47,16 @@ class FileRepl extends Repl {
         }
     }
 
-    private Interpreter createInterpreter(Writer writer) {
-        return new Interpreter(LibLoader.createGlobalContext(), new InterpreterListener() {
+    private Interpreter createInterpreter(PrintStream writer) {
+        def interpreter = new Interpreter(LibLoader.createGlobalContext(), new InterpreterListener() {
+            @Override
+            void onExpressionParsed(Node node) {
+                printNewLineIfNeeded()
+            }
+
             @Override
             void onResult(Object result) {
-                printNewLineIfNeeded()
-                writer.print ">> $result"
+                writer.append ">> $result"
                 writer.flush()
             }
 
@@ -59,15 +65,13 @@ class FileRepl extends Repl {
                 if (e instanceof ExitException) {
                     System.exit(e.exitCode)
                 } else {
-                    printNewLineIfNeeded()
-                    writer.print ">> ERROR: $e"
+                    writer.append ">> ERROR: $e"
                     writer.flush()
                 }
             }
 
             @Override
             void onUnhandledError(Exception e) {
-                printNewLineIfNeeded()
                 def printWriter = new PrintWriter(writer)
                 e.printStackTrace(printWriter)
                 printWriter.flush()
@@ -75,14 +79,16 @@ class FileRepl extends Repl {
             }
 
             private void printNewLineIfNeeded() {
-                if (lastIsNewLine) {
+                if (lastWasNewLine) {
                     newLineNeeded = true
                 } else {
                     newLineNeeded = false
-                    writer.print "\n"
+                    writer.append "\n"
                 }
             }
         })
+        interpreter.stdOut = writer
+        return interpreter
     }
 
 }

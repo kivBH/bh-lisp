@@ -41,3 +41,7 @@ cz.bh.lisp.lib.meta._Class
 cz.bh.lisp.lib.meta.InstanceP
 cz.bh.lisp.lib.meta.JavaNew
 cz.bh.lisp.lib.meta.JavaCall
+cz.bh.lisp.lib.meta.Print
+cz.bh.lisp.lib.meta.Println
+
+cz.bh.lisp.lib.flow.Do

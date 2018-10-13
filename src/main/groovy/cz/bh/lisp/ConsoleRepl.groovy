@@ -4,13 +4,14 @@ import cz.bh.lisp.interpreter.Interpreter
 import cz.bh.lisp.interpreter.InterpreterListener
 import cz.bh.lisp.lib.ExitException
 import cz.bh.lisp.lib.LibLoader
+import cz.bh.lisp.parser.sexp.Node
 
 /**
  *
- * @version 2018-10-07
+ * @version 2018-10-13
  * @author Patrik Harag
  */
-class ConsoleRepl extends Repl {
+class ConsoleRepl {
 
     void start(Reader reader, Writer writer) {
         def interpreter = createInterpreter(writer)
@@ -35,8 +36,13 @@ class ConsoleRepl extends Repl {
     private Interpreter createInterpreter(Writer writer) {
         return new Interpreter(LibLoader.createGlobalContext(), new InterpreterListener() {
             @Override
+            void onExpressionParsed(Node node) {
+                // ignore
+            }
+
+            @Override
             void onResult(Object result) {
-                writer.println ">> $result"
+                writer.append ">> $result\n"
                 writer.flush()
             }
 
@@ -45,7 +51,7 @@ class ConsoleRepl extends Repl {
                 if (e instanceof ExitException) {
                     System.exit(e.exitCode)
                 } else {
-                    writer.println ">> ERROR: $e"
+                    writer.append ">> ERROR: $e\n"
                     writer.flush()
                 }
             }

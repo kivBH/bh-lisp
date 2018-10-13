@@ -10,7 +10,7 @@ import cz.bh.lisp.parser.sexp.Node
 abstract class SimpleFunction implements Executable {
 
     @Override
-    Object run(Interpreter interpreter, Context context, List<Node> parameters) {
+    Object execute(Interpreter interpreter, Context context, List<Node> parameters) {
         run(parameters.collect { interpreter.eval(it, context) })
     }
 

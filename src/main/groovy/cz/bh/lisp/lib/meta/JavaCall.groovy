@@ -27,7 +27,7 @@ class JavaCall extends NativeMacro {
     }
 
     @Override
-    Object run(Interpreter interpreter, Context context, List<Node> parameters) {
+    def execute(Interpreter interpreter, Context context, List<Node> parameters) {
         Preconditions.requireParametersAtLeast(parameters, 2)
         def methodName = parameters[0]
         if (!(methodName instanceof SymbolNode)) {

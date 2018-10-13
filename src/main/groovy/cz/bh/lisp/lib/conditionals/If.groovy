@@ -26,7 +26,7 @@ class If extends NativeMacro {
     }
 
     @Override
-    Object run(Interpreter interpreter, Context context, List<Node> parameters) {
+    Object execute(Interpreter interpreter, Context context, List<Node> parameters) {
         Preconditions.requireParameters(parameters, 3)
 
         def test = interpreter.eval(parameters[0], context)

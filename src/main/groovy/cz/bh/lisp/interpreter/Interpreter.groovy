@@ -13,17 +13,19 @@ import cz.bh.lisp.parser.sexp.SymbolNode
 
 /**
  *
- * @version 2018-10-07
+ * @version 2018-10-13
  * @author Patrik Harag
  */
 class Interpreter {
 
     private final Context globalContext
     private final InterpreterListener listener
+    PrintStream stdOut
 
     Interpreter(Context globalContext, InterpreterListener listener) {
         this.globalContext = globalContext
         this.listener = listener
+        this.stdOut = System.out
     }
 
     void eval(String sourceCode) {
@@ -36,7 +38,9 @@ class Interpreter {
 
         while (iterator.hasNext()) {
             try {
-                def result = eval(iterator.next(), globalContext)
+                def next = iterator.next()
+                listener.onExpressionParsed(next)
+                def result = eval(next, globalContext)
                 listener.onResult(result)
             } catch (LispException e) {
                 listener.onUnhandledException(e)
@@ -75,7 +79,7 @@ class Interpreter {
                 parameters = node.val.drop(1)
             }
             try {
-                return evaluatedFirstNode.run(this, context, parameters)
+                return evaluatedFirstNode.execute(this, context, parameters)
             } catch (ExitException e) {
                 throw e
             } catch (Exception e) {
