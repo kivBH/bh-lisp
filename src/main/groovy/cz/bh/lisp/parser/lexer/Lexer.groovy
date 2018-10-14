@@ -57,7 +57,14 @@ class Lexer {
                     tokenBuff.add(new Token(TokenType.START_LIST, ""+c, line)) // samostatny token schovam na pozdeji
                     return createToken(stringBuilder.toString())    // vratim token predchazejici
                 case ')':
-                    tokenBuff.add(new Token(TokenType.END_LIST, ""+c, line))   // samostatny token schovam na pozdeji
+                case ']':   // konec listu
+                    tokenBuff.add(new Token(TokenType.END_LIST, ")", line))   // samostatny token schovam na pozdeji
+                    return createToken(stringBuilder.toString())    // vratim token predchazejici
+
+            // list
+                case '[':
+                    tokenBuff.add(new Token(TokenType.START_LIST, "(", line))   // [ na (list
+                    tokenBuff.add(new Token(TokenType.UNKNOWN, "list", line))
                     return createToken(stringBuilder.toString())    // vratim token predchazejici
 
             // retezec
