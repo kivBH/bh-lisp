@@ -1,10 +1,11 @@
 package cz.bh.lisp.parser.exceptions
 
-class WrongBracketCounterParserException extends Exception {
+class WrongBracketCounterParserException extends ParserException {
     int counter
 
-    WrongBracketCounterParserException(int counter) {
-        super("Wrong bracket counter")
+    WrongBracketCounterParserException(int counter, int line) {
+        super("Wrong bracket counter", line)
+        this.counter = counter
     }
 
     int getCounter() {

@@ -1,6 +1,8 @@
 package cz.bh.lisp.parser.exceptions
 
-class ParserException extends Exception {
+import cz.bh.lisp.LispException
+
+class ParserException extends LispException {
     int line
 
     ParserException(String message, int line) {

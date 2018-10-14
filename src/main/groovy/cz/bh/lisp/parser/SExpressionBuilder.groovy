@@ -28,14 +28,14 @@ class SExpressionBuilder implements Iterable<Node> {
         switch (t.type) {
             case TokenType.END_LIST:
                 counter--
-                throw new WrongBracketCounterParserException(counter)
+                throw new WrongBracketCounterParserException(counter, t.linePosition)
 
             case TokenType.START_LIST:
                 counter++
                 ListNode root = new ListNode(t.linePosition)
                 buildOver(root, counter - 1)
                 if (counter != 0) {
-                    throw new WrongBracketCounterParserException(counter)
+                    throw new WrongBracketCounterParserException(counter, t.linePosition)
                 }
                 return root
 
