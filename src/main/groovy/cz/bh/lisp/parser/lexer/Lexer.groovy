@@ -7,13 +7,14 @@ class Lexer {
     Reader reader
     int line
     StringBuilder stringBuilder
-    Token bufferedToken
+    Queue<Token> tokenBuff
 
     Lexer(Reader reader) {
         this.reader = reader
         this.line = 1
         this.stringBuilder = new StringBuilder()
-        this.bufferedToken = null
+        this.tokenBuff = new LinkedList<>()
+        this.tokenBuff.clear()
     }
 
     Token nextToken() {
@@ -41,9 +42,8 @@ class Lexer {
     }
 
     private Token createNextToken() {
-        if (bufferedToken != null) {
-            Token t = bufferedToken
-            bufferedToken = null
+        if (!tokenBuff.isEmpty()) {
+            Token t = tokenBuff.poll()
             return t
         }
 
@@ -54,15 +54,15 @@ class Lexer {
             switch (c) {
             // samostatny token
                 case '(':
-                    bufferedToken = new Token(TokenType.START_LIST, ""+c, line)   // samostatny token schovam na pozdeji
+                    tokenBuff.add(new Token(TokenType.START_LIST, ""+c, line)) // samostatny token schovam na pozdeji
                     return createToken(stringBuilder.toString())    // vratim token predchazejici
                 case ')':
-                    bufferedToken = new Token(TokenType.END_LIST, ""+c, line)   // samostatny token schovam na pozdeji
+                    tokenBuff.add(new Token(TokenType.END_LIST, ""+c, line))   // samostatny token schovam na pozdeji
                     return createToken(stringBuilder.toString())    // vratim token predchazejici
 
             // retezec
                 case '"':
-                    bufferedToken = createStringToken() // do bufferu dalsi string token, pokud dojde k vyjimce nevrati soucasny token, ale to odpovida chovani napr. pro (+ (+ 1 2 "v") "jh)
+                    tokenBuff.add(createStringToken()) // do bufferu dalsi string token, pokud dojde k vyjimce nevrati soucasny token, ale to odpovida chovani napr. pro (+ (+ 1 2 "v") "jh)
                     return createToken(stringBuilder.toString())    // vratim token predchazejici
 
             // ukonceni tokenu
