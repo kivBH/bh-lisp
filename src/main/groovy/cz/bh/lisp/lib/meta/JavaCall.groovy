@@ -11,7 +11,7 @@ import cz.bh.lisp.parser.sexp.SymbolNode
 /**
  * Defines the {@code .} macro.
  *
- * @version 2018-10-12
+ * @version 2018-10-14
  * @author Patrik Harag
  */
 class JavaCall extends NativeMacro {
@@ -36,10 +36,10 @@ class JavaCall extends NativeMacro {
 
         def evaluatedInstance = interpreter.eval(parameters[1], context)
         def evaluatedParameters = parameters.drop(2).collect {
-            interpreter.eval(it, context)
+            Nil.unwrap(interpreter.eval(it, context))
         }
 
         def result = evaluatedInstance."$methodName.val"(*evaluatedParameters)
-        return Nil.map(result)
+        return Nil.wrap(result)
     }
 }

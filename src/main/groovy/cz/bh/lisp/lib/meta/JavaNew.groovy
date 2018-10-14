@@ -1,12 +1,13 @@
 package cz.bh.lisp.lib.meta
 
 import cz.bh.lisp.lib.NativeFunction
+import cz.bh.lisp.lib.Nil
 import cz.bh.lisp.lib.Preconditions
 
 /**
  * Defines the {@code new} function.
  *
- * @version 2018-10-12
+ * @version 2018-10-14
  * @author Patrik Harag
  */
 class JavaNew extends NativeFunction {
@@ -26,6 +27,7 @@ class JavaNew extends NativeFunction {
         Preconditions.requireParametersAtLeast(parameters, 1)
 
         def clazz = Preconditions.requireType(parameters[0], Class)
-        return clazz.newInstance(parameters.drop(1).toArray())
+        def params = parameters.drop(1).collect { Nil.unwrap(it) }.toArray()
+        return clazz.newInstance(params)
     }
 }

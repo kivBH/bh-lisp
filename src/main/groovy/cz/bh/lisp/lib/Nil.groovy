@@ -2,15 +2,19 @@ package cz.bh.lisp.lib
 
 /**
  *
- * @version 2018-10-12
+ * @version 2018-10-14
  * @author Patrik Harag
  */
 final class Nil {
 
     static final Nil VALUE = new Nil()
 
-    static def map(object) {
+    static def wrap(object) {
         return (object == null) ? VALUE : object
+    }
+
+    static def unwrap(object) {
+        return (object instanceof Nil) ? null : object
     }
 
 
