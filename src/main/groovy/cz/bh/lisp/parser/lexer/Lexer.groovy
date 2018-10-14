@@ -74,6 +74,11 @@ class Lexer {
                 case '\r':
                     break
 
+            // comment
+                case ';':
+                    eatComment() // skip commentu
+                    return createToken(stringBuilder.toString())    // vratim token predchazejici
+
             // new line
                 case '\n':
                     Token t = createToken(stringBuilder.toString())
@@ -91,6 +96,18 @@ class Lexer {
             }
         }
         return createEndOfStreamToken(stringBuilder.toString())
+    }
+
+    def eatComment() {
+        char c
+        while ((c = reader.read()) >= 0) {
+            switch (c) {
+            // new line
+                case '\n':
+                    line++
+                    return  // po konci radky se vratim
+            }
+        }
     }
 
     private Token createStringToken() {
