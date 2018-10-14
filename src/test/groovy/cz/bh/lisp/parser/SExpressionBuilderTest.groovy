@@ -86,4 +86,22 @@ class SExpressionBuilderTest {
         }
         assert c == 5
     }
+
+    @Test
+    void commentTest() {
+        build('(text ; comment \n)')
+        assert n instanceof ListNode
+        assert n.val.size() == 1
+        n = n.val.get(0)
+        assert n.val == "text"
+    }
+
+    @Test
+    void listTest() {
+        build('[1 2]')
+        assert n instanceof ListNode
+        assert n.val.size() == 3
+        n = n.val.get(0)
+        assert n.val == "list"
+    }
 }
