@@ -1,7 +1,7 @@
 package cz.bh.lisp.parser.lexer
 
-import cz.bh.lisp.parser.exceptions.EscapeSequenceLexerException
-import cz.bh.lisp.parser.exceptions.InputEndsWithinStringLexerException
+
+import cz.bh.lisp.parser.exceptions.LexerException
 import cz.bh.lisp.parser.sexp.StringNode
 import cz.bh.lisp.parser.sexp.SymbolNode
 
@@ -146,7 +146,7 @@ class Lexer {
                     sb.append(c)
             }
         }
-        throw new InputEndsWithinStringLexerException(line)
+        throw new LexerException("Input ends within a string", line)
     }
 
     private char getNextForEscapeSequence() {
@@ -154,7 +154,7 @@ class Lexer {
         if ((c = reader.read()) >= 0) {
             return c
         } else {
-            throw new EscapeSequenceLexerException(line)
+            throw new LexerException("Wrong escape sequence", line)
         }
     }
 }
