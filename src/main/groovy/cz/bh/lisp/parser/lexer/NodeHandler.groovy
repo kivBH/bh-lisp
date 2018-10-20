@@ -11,15 +11,17 @@ import java.util.regex.Pattern
 class NodeHandler {
     Pattern integerPattern
     Pattern doublePattern
+    Pattern doubleExpPattern
 
     NodeHandler() {
-        integerPattern = Pattern.compile("-?\\d+")
-        doublePattern = Pattern.compile("-?\\d+[.]\\d+")
+        integerPattern = Pattern.compile("[+-]?\\d+")
+        doublePattern = Pattern.compile("[+-]?\\d+[,.]\\d+")
+        doubleExpPattern = Pattern.compile("[+-]?\\d+([,.]\\d+)?[eE][+-]?\\d+")
     }
 
     Node handle(String val, int linePosition) {
-        if (doublePattern.matcher(val).matches()) {
-            BigDecimal d = new BigDecimal(val)
+        if (doublePattern.matcher(val).matches() || doubleExpPattern.matcher(val).matches()) {
+            BigDecimal d = new BigDecimal(val.replace(',', '.'))
             return new DoubleNode(d, linePosition)
         }
 
