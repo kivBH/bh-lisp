@@ -4,6 +4,8 @@ import cz.bh.lisp.interpreter.Interpreter
 import cz.bh.lisp.interpreter.InterpreterListener
 import cz.bh.lisp.lib.ExitException
 import cz.bh.lisp.lib.LibLoader
+import cz.bh.lisp.parser.exceptions.LexerException
+import cz.bh.lisp.parser.exceptions.ParserException
 import cz.bh.lisp.parser.sexp.Node
 
 /**
@@ -65,6 +67,9 @@ class FileRepl {
                 if (e instanceof ExitException) {
                     System.exit(e.exitCode)
                 } else {
+                    if (e instanceof ParserException || e instanceof LexerException) {  // JB: pokud chyba, neni volano onExpressionParsed
+                        printNewLineIfNeeded()
+                    }
                     writer.append ">> ERROR: $e"
                     writer.flush()
                 }

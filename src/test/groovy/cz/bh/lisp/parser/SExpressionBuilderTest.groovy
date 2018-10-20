@@ -1,5 +1,7 @@
 package cz.bh.lisp.parser
 
+import cz.bh.lisp.parser.exceptions.LexerException
+import cz.bh.lisp.parser.exceptions.ParserException
 import cz.bh.lisp.parser.sexp.*
 import org.junit.Test
 
@@ -69,5 +71,35 @@ class SExpressionBuilderTest {
         assert n.val.size() == 3
         n = n.val.get(0)
         assert n.val == "list"
+    }
+
+    @Test(expected = LexerException.class)
+    void wrongEscapeSequenceTest() {
+        build("\\")
+    }
+
+    @Test(expected = LexerException.class)
+    void inputEndInTextTest() {
+        build('"')
+    }
+
+    @Test(expected = ParserException.class)
+    void wrongBracketCounterTest1() {
+        build(")")
+    }
+
+    @Test(expected = ParserException.class)
+    void wrongBracketCounterTest2() {
+        build("(")
+    }
+
+    @Test(expected = ParserException.class)
+    void wrongBracketCounterTest3() {
+        build("[")
+    }
+
+    @Test(expected = ParserException.class)
+    void wrongBracketCounterTest4() {
+        build("]")
     }
 }

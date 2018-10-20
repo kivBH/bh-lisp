@@ -1,0 +1,6 @@
+)
+>> ERROR: cz.bh.lisp.parser.exceptions.ParserException: Wrong bracket counter
+]
+>> ERROR: cz.bh.lisp.parser.exceptions.ParserException: Wrong bracket counter, on line: 2
+"
+>> ERROR: cz.bh.lisp.parser.exceptions.LexerException: Input ends within a string, on line: 3

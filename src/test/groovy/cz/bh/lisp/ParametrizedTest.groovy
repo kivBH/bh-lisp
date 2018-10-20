@@ -24,6 +24,7 @@ class ParametrizedTest {
                 "collections",
                 "flow",
                 "java-interop",
+                "parser-exceptions",
         ]
 
         tests.collect {
@@ -45,8 +46,8 @@ class ParametrizedTest {
         def buffer = new ByteArrayOutputStream()
         generate(source, new PrintStream(buffer, true, "utf-8"))
 
-        String expected = reference.getText("utf-8").replace('\r', '')
-        String actual = new String(buffer.toByteArray(), "utf-8").replace('\r', '')
+        String expected = reference.getText("utf-8").replace('\r', '').replace('\0','')
+        String actual = new String(buffer.toByteArray(), "utf-8").replace('\r', '').replace('\0','')
         Assert.assertEquals(expected, actual)
     }
 
