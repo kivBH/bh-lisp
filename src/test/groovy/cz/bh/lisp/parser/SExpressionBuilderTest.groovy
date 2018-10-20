@@ -53,40 +53,6 @@ class SExpressionBuilderTest {
         assert n.val == 's"tr \\'
     }
 
-    @Test(expected = NoSuchElementException.class)
-    void iterableTest() {
-        prep('1 2 3 4 5')
-
-        Iterator<Node> it = b.iterator()
-        for (int i = 0; i < 6; i++) {
-            it.hasNext()
-        }
-        assert it.hasNext()
-
-        for (int i = 1; i < 5; i++) {
-            n = it.next()
-            assert n instanceof IntegerNode
-            assert n.val == i
-        }
-
-        assert it.hasNext()
-        it.next()
-        assert !it.hasNext()
-        assert !it.hasNext()
-        it.next()
-    }
-
-    @Test
-    void iterableTest2() {
-        prep('1 2 3 4 5')
-        int c = 0
-        int sum = 0
-        for(Node node: b) {
-            c++
-        }
-        assert c == 5
-    }
-
     @Test
     void commentTest() {
         build('(text ; comment \n)')

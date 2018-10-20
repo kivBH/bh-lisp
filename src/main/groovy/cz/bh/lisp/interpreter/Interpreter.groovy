@@ -34,11 +34,13 @@ class Interpreter {
 
     void eval(Reader sourceCode) {
         def builder = new SExpressionBuilder(sourceCode)
-        def iterator = builder.iterator()
 
-        while (iterator.hasNext()) {
+        while (true) {
             try {
-                def next = iterator.next()
+                def next = builder.build()
+                if (next == null) {
+                    return
+                }
                 listener.onExpressionParsed(next)
                 def result = eval(next, globalContext)
                 listener.onResult(result)

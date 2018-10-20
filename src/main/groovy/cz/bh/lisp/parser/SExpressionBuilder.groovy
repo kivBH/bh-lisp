@@ -8,7 +8,7 @@ import cz.bh.lisp.parser.lexer.TokenType
 import cz.bh.lisp.parser.sexp.ListNode
 import cz.bh.lisp.parser.sexp.Node
 
-class SExpressionBuilder implements Iterable<Node> {
+class SExpressionBuilder {
     Lexer lexer
     int counter
 
@@ -71,37 +71,6 @@ class SExpressionBuilder implements Iterable<Node> {
                 default:
                     node.list.add(t.node)
             }
-        }
-    }
-
-    @Override
-    Iterator<Node> iterator() {
-        return new IteratorImpl()
-    }
-
-    private class IteratorImpl implements Iterator<Node> {
-        Node buffNext
-
-        IteratorImpl() {
-            buffNext = null
-        }
-
-        @Override
-        boolean hasNext() {
-            if (buffNext == null) {
-                buffNext = SExpressionBuilder.this.build()
-            }
-            return buffNext != null
-        }
-
-        @Override
-        Node next() {
-            if(hasNext()) {
-                Node ret = buffNext
-                buffNext = null
-                return ret
-            }
-            throw new NoSuchElementException()
         }
     }
 }
