@@ -1,7 +1,7 @@
 package cz.bh.lisp.parser.sexp
 
-class DoubleNode extends Node<Double> {
-    DoubleNode(Double val, int line) {
+class DoubleNode extends Node<BigDecimal> {
+    DoubleNode(BigDecimal val, int line) {
         super(val, line)
     }
 }

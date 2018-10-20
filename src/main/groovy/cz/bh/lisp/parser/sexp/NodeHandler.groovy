@@ -25,12 +25,12 @@ class NodeHandler {
 
     private Node handleUnknownToken(Token token) {
         if (doublePattern.matcher(token.val).matches()) {
-            Double d = Double.parseDouble(token.val)
+            BigDecimal d = new BigDecimal(token.val)
             return new DoubleNode(d, token.linePosition)
         }
 
         if (integerPattern.matcher(token.val).matches()) {
-            Integer i = Integer.parseInt(token.val)
+            BigInteger i = new BigInteger(token.val)
             return new IntegerNode(i, token.linePosition)
         }
 
