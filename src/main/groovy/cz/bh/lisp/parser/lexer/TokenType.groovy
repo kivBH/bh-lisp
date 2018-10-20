@@ -1,6 +1,6 @@
 package cz.bh.lisp.parser.lexer
 
 enum TokenType {
-    START_LIST, END_LIST, UNKNOWN, EMPTY,
-    STRING
+    START_LIST, END_LIST, EMPTY,
+    NODE
 }

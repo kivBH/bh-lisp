@@ -6,17 +6,14 @@ import cz.bh.lisp.parser.lexer.Token
 import cz.bh.lisp.parser.lexer.TokenType
 import cz.bh.lisp.parser.sexp.ListNode
 import cz.bh.lisp.parser.sexp.Node
-import cz.bh.lisp.parser.sexp.NodeHandler
 
 class SExpressionBuilder implements Iterable<Node> {
     Lexer lexer
     int counter
-    NodeHandler nodeHandler
 
     SExpressionBuilder(Reader reader) {
         this.lexer = new Lexer(reader)
         this.counter = 0
-        this.nodeHandler = new NodeHandler()
     }
 
     Node build() {
@@ -40,7 +37,7 @@ class SExpressionBuilder implements Iterable<Node> {
                 return root
 
             default:
-                return nodeHandler.handleToken(t)
+                return t.node
         }
     }
 
@@ -71,7 +68,7 @@ class SExpressionBuilder implements Iterable<Node> {
                     break
 
                 default:
-                    node.list.add(nodeHandler.handleToken(t))
+                    node.list.add(t.node)
             }
         }
     }

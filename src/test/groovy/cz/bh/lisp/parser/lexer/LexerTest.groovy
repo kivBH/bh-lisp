@@ -20,27 +20,27 @@ class LexerTest {
         Lexer l = new Lexer(r)
 
         Token t = l.nextToken()
-        assert t.val == "("
+        assert t.node == null
         assert t.linePosition == 1
         assert t.type == TokenType.START_LIST
 
         t = l.nextToken()
-        assert t.val == "+"
+        assert t.node.val == "+"
         assert t.linePosition == 1
-        assert t.type == TokenType.UNKNOWN
+        assert t.type == TokenType.NODE
 
         t = l.nextToken()
-        assert t.val == "1"
+        assert t.node.val == new BigInteger("1")
         assert t.linePosition == 1
-        assert t.type == TokenType.UNKNOWN
+        assert t.type == TokenType.NODE
 
         t = l.nextToken()
-        assert t.val == "2"
+        assert t.node.val == new BigInteger("2")
         assert t.linePosition == 1
-        assert t.type == TokenType.UNKNOWN
+        assert t.type == TokenType.NODE
 
         t = l.nextToken()
-        assert t.val == ")"
+        assert t.node == null
         assert t.linePosition == 1
         assert t.type == TokenType.END_LIST
 

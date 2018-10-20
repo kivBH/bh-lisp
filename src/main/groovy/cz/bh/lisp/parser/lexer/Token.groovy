@@ -1,13 +1,15 @@
 package cz.bh.lisp.parser.lexer
 
+import cz.bh.lisp.parser.sexp.Node
+
 class Token {
     final TokenType type
-    final String val
+    final Node node
     final int linePosition
 
-    Token(TokenType type, String val, int linePosition) {
+    Token(TokenType type, Node node, int linePosition) {
         this.type = type
-        this.val = val
+        this.node = node
         this.linePosition = linePosition
     }
 }

@@ -2,12 +2,15 @@ package cz.bh.lisp.parser.lexer
 
 import cz.bh.lisp.parser.exceptions.EscapeSequenceLexerException
 import cz.bh.lisp.parser.exceptions.InputEndsWithinStringLexerException
+import cz.bh.lisp.parser.sexp.StringNode
+import cz.bh.lisp.parser.sexp.SymbolNode
 
 class Lexer {
     Reader reader
     int line
     StringBuilder stringBuilder
     Queue<Token> tokenBuff
+    NodeHandler nodeHandler
 
     Lexer(Reader reader) {
         this.reader = reader
@@ -15,6 +18,7 @@ class Lexer {
         this.stringBuilder = new StringBuilder()
         this.tokenBuff = new LinkedList<>()
         this.tokenBuff.clear()
+        this.nodeHandler = new NodeHandler()
     }
 
     Token nextToken() {
@@ -27,10 +31,10 @@ class Lexer {
 
     private Token createToken(String val) {
         if (val.length() <= 0) {
-            return new Token(TokenType.EMPTY, val, line)
+            return new Token(TokenType.EMPTY, null, line)
         }
 
-        return new Token(TokenType.UNKNOWN, val, line)
+        return new Token(TokenType.NODE, nodeHandler.handle(val, line), line)
     }
 
     private Token createEndOfStreamToken(String val) {
@@ -54,17 +58,17 @@ class Lexer {
             switch (c) {
             // samostatny token
                 case '(':
-                    tokenBuff.add(new Token(TokenType.START_LIST, ""+c, line)) // samostatny token schovam na pozdeji
+                    tokenBuff.add(new Token(TokenType.START_LIST, null, line)) // samostatny token schovam na pozdeji
                     return createToken(stringBuilder.toString())    // vratim token predchazejici
                 case ')':
                 case ']':   // konec listu
-                    tokenBuff.add(new Token(TokenType.END_LIST, ")", line))   // samostatny token schovam na pozdeji
+                    tokenBuff.add(new Token(TokenType.END_LIST, null, line))   // samostatny token schovam na pozdeji
                     return createToken(stringBuilder.toString())    // vratim token predchazejici
 
             // list
                 case '[':
-                    tokenBuff.add(new Token(TokenType.START_LIST, "(", line))   // [ na (list
-                    tokenBuff.add(new Token(TokenType.UNKNOWN, "list", line))
+                    tokenBuff.add(new Token(TokenType.START_LIST, null, line))   // [ na (list
+                    tokenBuff.add(new Token(TokenType.NODE, new SymbolNode("list", line), line))
                     return createToken(stringBuilder.toString())    // vratim token predchazejici
 
             // retezec
@@ -124,7 +128,7 @@ class Lexer {
             switch (c) {
             // konec retezce
                 case '"':
-                    return new Token(TokenType.STRING, sb.toString(), line)
+                    return new Token(TokenType.NODE, new StringNode(sb.toString(), line), line)
 
             // escape sekvence
                 case '\\':
