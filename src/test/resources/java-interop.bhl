@@ -3,9 +3,19 @@
 (. length "test")
 (. substring "hello world" 6)
 (. hashCode (list "a" "b" "c"))
+
+; not existing method
 (. hashcode (list "a" "b" "c"))
+
+; void method
 (. clear (list "a" "b" "c"))
 
+; static method
+(. parseInt @java.lang.Integer "42")
+
 (doc new)
-(new (class (list)) (hash-set 1 2 3 3))
-(class (new (class (list)) (hash-set 1 2 3 3)))
+(new @java.util.LinkedList (hash-set 1 2 3 3))
+(class (new @java.util.LinkedList (hash-set 1 2 3 3)))
+
+(instance? @java.lang.String "string")
+(instance? @java.lang.String 42)
