@@ -25,6 +25,7 @@ class ParametrizedTest {
                 "flow",
                 "java-interop",
                 "parser-exceptions",
+                "lexer-exceptions",
         ]
 
         tests.collect {

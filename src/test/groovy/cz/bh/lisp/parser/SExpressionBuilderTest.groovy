@@ -102,4 +102,15 @@ class SExpressionBuilderTest {
     void wrongBracketCounterTest4() {
         build("]")
     }
+
+    @Test
+    void classTest() {
+        build('@java.lang.String')
+        assert n instanceof ClassNode
+    }
+
+    @Test(expected = LexerException.class)
+    void classWrongTest() {
+        build('@(123)')
+    }
 }

@@ -1,5 +1,6 @@
 package cz.bh.lisp.parser
 
+import cz.bh.lisp.LispException
 import cz.bh.lisp.parser.exceptions.ParserException
 
 import cz.bh.lisp.parser.lexer.Lexer
@@ -18,6 +19,19 @@ class SExpressionBuilder {
     }
 
     Node build() {
+        Node n
+        try {
+            n = pomBuild()
+        }
+        catch (LispException e) {
+            counter = 0
+            lexer.recover()
+            throw e
+        }
+        return n
+    }
+
+    private Node pomBuild() {
         Token t = lexer.nextToken()
         if (t == null) {
             return null

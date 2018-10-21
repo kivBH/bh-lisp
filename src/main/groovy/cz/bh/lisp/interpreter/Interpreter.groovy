@@ -4,6 +4,7 @@ import cz.bh.lisp.LispException
 import cz.bh.lisp.lib.ExitException
 import cz.bh.lisp.lib.Nil
 import cz.bh.lisp.parser.SExpressionBuilder
+import cz.bh.lisp.parser.sexp.ClassNode
 import cz.bh.lisp.parser.sexp.DoubleNode
 import cz.bh.lisp.parser.sexp.IntegerNode
 import cz.bh.lisp.parser.sexp.ListNode
@@ -61,6 +62,7 @@ class Interpreter {
             case IntegerNode:
             case DoubleNode:
             case StringNode:
+            case ClassNode:
                 return node.val
             default:
                 throw new UnsupportedOperationException("Not implemented yet")

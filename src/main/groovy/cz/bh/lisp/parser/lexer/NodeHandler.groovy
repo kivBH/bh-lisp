@@ -1,6 +1,7 @@
 package cz.bh.lisp.parser.lexer
 
-
+import cz.bh.lisp.parser.exceptions.LexerException
+import cz.bh.lisp.parser.sexp.ClassNode
 import cz.bh.lisp.parser.sexp.DoubleNode
 import cz.bh.lisp.parser.sexp.IntegerNode
 import cz.bh.lisp.parser.sexp.Node
@@ -32,5 +33,19 @@ class NodeHandler {
 
         // nerozpoznane jako symbol
         return new SymbolNode(val, linePosition)
+    }
+
+    ClassNode handleClass(String val, int linePosition) {
+        Class c
+        try {
+            c = Class.forName(val)
+        }
+        catch (ClassNotFoundException e) {
+            throw new LexerException("Class " + val + " not found", linePosition)
+        }
+        catch (Exception e) {
+            throw new LexerException("Can not create Class object from " + val, linePosition)
+        }
+        return new ClassNode(c, linePosition)
     }
 }

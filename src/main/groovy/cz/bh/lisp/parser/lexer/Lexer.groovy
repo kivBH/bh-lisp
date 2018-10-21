@@ -2,6 +2,8 @@ package cz.bh.lisp.parser.lexer
 
 
 import cz.bh.lisp.parser.exceptions.LexerException
+import cz.bh.lisp.parser.sexp.ClassNode
+import cz.bh.lisp.parser.sexp.Node
 import cz.bh.lisp.parser.sexp.StringNode
 import cz.bh.lisp.parser.sexp.SymbolNode
 
@@ -11,6 +13,7 @@ class Lexer {
     StringBuilder stringBuilder
     Queue<Token> tokenBuff
     NodeHandler nodeHandler
+    int bracketCounter
 
     Lexer(Reader reader) {
         this.reader = reader
@@ -19,106 +22,46 @@ class Lexer {
         this.tokenBuff = new LinkedList<>()
         this.tokenBuff.clear()
         this.nodeHandler = new NodeHandler()
+        this.bracketCounter = 0
     }
 
+    /**
+     * Returns next not empty token or null if the stream ends.
+     * @return next not empty token or null if the stream ends
+     * */
     Token nextToken() {
-        Token t = createNextToken()
-        while (t != null && t.type == TokenType.EMPTY) {
-            t = createNextToken()
+        return nextNotEmptyToken(tokenBuff, stringBuilder)
+    }
+
+    /**
+     * Returns next not empty token or null if the stream ends.
+     * @return next not empty token or null if the stream ends
+     * */
+    Token nextNotEmptyToken(Queue<Token> tokenBuff, StringBuilder stringBuilder) {
+        if (tokenBuff.isEmpty()) {
+            buffNextToken(tokenBuff, stringBuilder)
         }
-        return t
+
+        while (!tokenBuff.isEmpty()) {
+            while (!tokenBuff.isEmpty()) {
+                if (tokenBuff.peek().type == TokenType.EMPTY) {
+                    tokenBuff.poll()
+                }
+                else {
+                    return tokenBuff.poll()
+                }
+            }
+            buffNextToken(tokenBuff, stringBuilder)
+        }
+
+        return null
     }
 
     private Token createToken(String val) {
         if (val.length() <= 0) {
             return new Token(TokenType.EMPTY, null, line)
         }
-
         return new Token(TokenType.NODE, nodeHandler.handle(val, line), line)
-    }
-
-    private Token createEndOfStreamToken(String val) {
-        if (val.length() > 0) {
-            return createToken(val)
-        }
-
-        return null
-    }
-
-    private Token createNextToken() {
-        if (!tokenBuff.isEmpty()) {
-            Token t = tokenBuff.poll()
-            return t
-        }
-
-        stringBuilder.setLength(0)  // reset
-        char c
-        while ((c = reader.read()) >= 0) {    // -1 end of the stream
-
-            switch (c) {
-            // samostatny token
-                case '(':
-                    tokenBuff.add(new Token(TokenType.START_LIST, null, line)) // samostatny token schovam na pozdeji
-                    return createToken(stringBuilder.toString())    // vratim token predchazejici
-                case ')':
-                case ']':   // konec listu
-                    tokenBuff.add(new Token(TokenType.END_LIST, null, line))   // samostatny token schovam na pozdeji
-                    return createToken(stringBuilder.toString())    // vratim token predchazejici
-
-            // list
-                case '[':
-                    tokenBuff.add(new Token(TokenType.START_LIST, null, line))   // [ na (list
-                    tokenBuff.add(new Token(TokenType.NODE, new SymbolNode("list", line), line))
-                    return createToken(stringBuilder.toString())    // vratim token predchazejici
-
-            // retezec
-                case '"':
-                    tokenBuff.add(createStringToken()) // do bufferu dalsi string token, pokud dojde k vyjimce nevrati soucasny token, ale to odpovida chovani napr. pro (+ (+ 1 2 "v") "jh)
-                    return createToken(stringBuilder.toString())    // vratim token predchazejici
-
-            // ukonceni tokenu
-                case ' ':
-                case '\t':
-                    return createToken(stringBuilder.toString())
-
-            // ignore
-                case '\r':
-                    break
-
-            // comment
-                case ';':
-                    eatComment() // skip commentu
-                    return createToken(stringBuilder.toString())    // vratim token predchazejici
-
-            // new line
-                case '\n':
-                    Token t = createToken(stringBuilder.toString())
-                    line++
-                    return t
-
-            // escape sekvence
-                case '\\':
-                    stringBuilder.append(getNextForEscapeSequence())
-                    break
-
-            // znaky tokenu
-                default:
-                    stringBuilder.append(c)
-            }
-        }
-        return createEndOfStreamToken(stringBuilder.toString())
-    }
-
-    def eatComment() {
-        char c
-        while ((c = reader.read()) >= 0) {
-            switch (c) {
-            // new line
-                case '\n':
-                    line++
-                    return  // po konci radky se vratim
-            }
-        }
     }
 
     private Token createStringToken() {
@@ -149,12 +92,175 @@ class Lexer {
         throw new LexerException("Input ends within a string", line)
     }
 
+    private Token createStartListToken() {
+        bracketCounter++
+        return new Token(TokenType.START_LIST, null, line)
+    }
+
+    private Token createEndListToken() {
+        bracketCounter--
+        return new Token(TokenType.END_LIST, null, line)
+    }
+
+    private void buffNextToken(Queue<Token> tokenBuff, StringBuilder stringBuilder) {
+        stringBuilder.setLength(0)  // reset
+        char c
+        while ((c = reader.read()) >= 0) {    // -1 end of the stream
+
+            switch (c) {
+            // samostatny token
+                case '(':
+                    tokenBuff.add(createToken(stringBuilder.toString())) // token predchazejici
+                    tokenBuff.add(createStartListToken())                // samostatny token pozdeji
+                    return
+                case ')':
+                case ']':   // konec listu
+                    tokenBuff.add(createToken(stringBuilder.toString()))    // token predchazejici
+                    tokenBuff.add(createEndListToken())                     // samostatny token na pozdeji
+                    return
+
+            // list
+                case '[':
+                    tokenBuff.add(createToken(stringBuilder.toString()))    // token predchazejici
+                    tokenBuff.add(createStartListToken())                   // [ na (list
+                    tokenBuff.add(new Token(TokenType.NODE, new SymbolNode("list", line), line))
+                    return
+
+            // retezec
+                case '"':
+                    tokenBuff.add(createToken(stringBuilder.toString()))
+                    tokenBuff.add(createStringToken())
+                    return
+
+            // ukonceni tokenu
+                case ' ':
+                case '\t':
+                    tokenBuff.add(createToken(stringBuilder.toString()))
+                    return
+
+            // ignore
+                case '\r':
+                    break
+
+            // comment
+                case ';':
+                    tokenBuff.add(createToken(stringBuilder.toString()))
+                    eat((char) '\n') // skip commentu
+                    return
+
+            // new line
+                case '\n':
+                    tokenBuff.add(createToken(stringBuilder.toString()))
+                    line++
+                    return
+
+            // escape sekvence
+                case '\\':
+                    stringBuilder.append(getNextForEscapeSequence())
+                    break
+
+            // class
+                case '@':
+                    tokenBuff.add(createToken(stringBuilder.toString())) // predchazejici
+                    addClassTokenToBuff(tokenBuff) // do bufferu dalsi class token
+                    return
+
+            // znaky tokenu
+                default:
+                    stringBuilder.append(c)
+            }
+        }
+
+        String val = stringBuilder.toString()
+        if (val.length() > 0) {
+            tokenBuff.add(createToken(val))
+        }
+    }
+
+    private Token addClassTokenToBuff(Queue<Token> tokenBuff) {
+        // stringB reset, fronta
+        StringBuilder sb = new StringBuilder()
+        Queue<Token> tb = new LinkedList<>()
+
+        Token t = nextNotEmptyToken(tb, sb)
+        if (t != null) {
+            Node n = t.node
+            if (n != null && n instanceof SymbolNode) {
+                Token classToken = new Token(TokenType.NODE, nodeHandler.handleClass(n.val, n.line), n.line)
+                tokenBuff.add(classToken)
+                tokenBuff.addAll(tb)        // pridam vsechny nabufferovane polozky
+                return
+            }
+        }
+        throw new LexerException("Wrong @class definition", t.linePosition)
+    }
+
+    private void eat(char end) {
+        char c
+        while ((c = reader.read()) >= 0) {
+            if (c == '\n') {
+                line++
+            }
+            if (c == end) {
+                return
+            }
+        }
+    }
+
     private char getNextForEscapeSequence() {
         char c
         if ((c = reader.read()) >= 0) {
             return c
         } else {
             throw new LexerException("Wrong escape sequence", line)
+        }
+    }
+
+
+    /**
+     * Recover based on bracket counter
+     * */
+    void recover() {
+        tokenBuff.clear()
+        stringBuilder.setLength(0)
+        if (bracketCounter < 0) {   // zacnu ihned
+            bracketCounter = 0
+            return
+        }
+
+        while (bracketCounter > 0) {
+            char c
+            if((c = reader.read()) >= 0) {
+                switch (c) {
+                    case '(':
+                    case '[':
+                        bracketCounter++
+                        break
+
+                    case ')':
+                    case ']':
+                        bracketCounter--
+                        break
+
+                // retezec
+                    case '"':
+                        eat('"')
+                        break
+
+                // comment
+                    case ';':
+                        eat((char) '\n') // skip commentu
+                        break
+
+                // new line
+                    case '\n':
+                        line++
+                        break
+                }
+            }
+            else {  // EOS
+                return
+            }
         }
     }
 }

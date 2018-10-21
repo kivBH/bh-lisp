@@ -1,0 +1,36 @@
+@()
+>> ERROR: cz.bh.lisp.parser.exceptions.LexerException: Wrong @class definition
+@\(\)
+>> ERROR: cz.bh.lisp.parser.exceptions.LexerException: Class () not found, on line: 2
+(@)
+>> ERROR: cz.bh.lisp.parser.exceptions.LexerException: Wrong @class definition, on line: 3
+(@@java.lang.String)
+>> ERROR: cz.bh.lisp.parser.exceptions.LexerException: Wrong @class definition, on line: 4
+]
+>> ERROR: cz.bh.lisp.parser.exceptions.ParserException: Wrong bracket counter, on line: 5
+@@java.lang.String
+>> ERROR: cz.bh.lisp.parser.exceptions.LexerException: Wrong @class definition, on line: 6
+()
+>> nil@@java.lang.String
+>> ERROR: cz.bh.lisp.parser.exceptions.LexerException: Wrong @class definition, on line: 7
+@java.lang.Strinsgsdfgg
+>> ERROR: cz.bh.lisp.parser.exceptions.LexerException: Class java.lang.Strinsgsdfgg not found, on line: 8
+@"java.lang.String"
+>> ERROR: cz.bh.lisp.parser.exceptions.LexerException: Wrong @class definition, on line: 9
+@java.lang.Str;ing
+>> ERROR: cz.bh.lisp.parser.exceptions.LexerException: Class java.lang.Str not found, on line: 10
+@java.lang.Str\;ing
+>> ERROR: cz.bh.lisp.parser.exceptions.LexerException: Class java.lang.Str;ing not found, on line: 11
+(new @java.lang.String ahoj)
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'new', on line: 12:
+    cz.bh.lisp.LispException: Symbol not defined: 'ahoj', on line: 12
+(@java.lang.String)
+>> ERROR: cz.bh.lisp.LispException: Function expected, but was: class java.lang.String, on line: 13
+@java.lang.String
+>> class java.lang.String
+(new @java.lang.String "ahoj")
+>> ahoj
+(@@@java.lang.String)
+>> ERROR: cz.bh.lisp.parser.exceptions.LexerException: Wrong @class definition, on line: 16
+(@java.lang.String")"
+>> ERROR: cz.bh.lisp.parser.exceptions.ParserException: Wrong bracket counter, on line: 17
