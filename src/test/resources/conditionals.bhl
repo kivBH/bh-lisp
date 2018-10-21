@@ -24,3 +24,9 @@
 (if false "T" "F")
 (if (not (= 1 1)) "T" "F")
 (if nil "T" "F")
+
+(doc cond)
+(cond)
+(cond false "F")
+(cond false "F" true)
+(cond false "F" true "T")

@@ -6,6 +6,7 @@ cz.bh.lisp.lib.conditionals.Not
 cz.bh.lisp.lib.conditionals.And
 cz.bh.lisp.lib.conditionals.Or
 cz.bh.lisp.lib.conditionals.If
+cz.bh.lisp.lib.conditionals.Cond
 
 cz.bh.lisp.lib.math.Plus
 cz.bh.lisp.lib.math.Minus

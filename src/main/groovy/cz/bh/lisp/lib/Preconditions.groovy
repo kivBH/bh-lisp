@@ -21,6 +21,13 @@ class Preconditions {
         }
     }
 
+    static void requireParametersMultipleOf(List parameters, int mod) {
+        if (parameters.size() % mod != 0) {
+            throw new IllegalArgumentException(
+                    "Expected number of parameters is multiple of ${mod}, but was: ${parameters.size()}")
+        }
+    }
+
     static <T> T requireType(instance, Class<T> clazz) {
         if (!clazz.isInstance(instance)) {
             throw new IllegalArgumentException(
