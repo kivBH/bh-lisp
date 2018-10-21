@@ -8,6 +8,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
+/**
+ * @author Josef Baloun
+ */
 @RunWith(Parameterized.class)
 class NodeHandlerParamTest {
 

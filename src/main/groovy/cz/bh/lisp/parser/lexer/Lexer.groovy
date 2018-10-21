@@ -7,6 +7,11 @@ import cz.bh.lisp.parser.sexp.Node
 import cz.bh.lisp.parser.sexp.StringNode
 import cz.bh.lisp.parser.sexp.SymbolNode
 
+/**
+ * Class for reading input and parsing into tokens
+ *
+ * @author Josef Baloun
+ */
 class Lexer {
     Reader reader
     int line
@@ -35,9 +40,12 @@ class Lexer {
 
     /**
      * Returns next not empty token or null if the stream ends.
+     *
+     * @param tokenBuff buff to use
+     * @param stringBuilder string builder to use
      * @return next not empty token or null if the stream ends
      * */
-    Token nextNotEmptyToken(Queue<Token> tokenBuff, StringBuilder stringBuilder) {
+    private Token nextNotEmptyToken(Queue<Token> tokenBuff, StringBuilder stringBuilder) {
         if (tokenBuff.isEmpty()) {
             buffNextToken(tokenBuff, stringBuilder)
         }

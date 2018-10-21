@@ -3,6 +3,9 @@ package cz.bh.lisp.parser.lexer
 import cz.bh.lisp.parser.exceptions.LexerException
 import org.junit.Test
 
+/**
+ * @author Josef Baloun
+ */
 class LexerTest {
 
     @Test(expected = LexerException.class)

@@ -9,6 +9,11 @@ import cz.bh.lisp.parser.lexer.TokenType
 import cz.bh.lisp.parser.sexp.ListNode
 import cz.bh.lisp.parser.sexp.Node
 
+/**
+ * Class for creating S-exp from reader
+ *
+ * @author Josef Baloun
+ */
 class SExpressionBuilder {
     Lexer lexer
     int counter
@@ -18,6 +23,10 @@ class SExpressionBuilder {
         this.counter = 0
     }
 
+    /**
+     * Builds next S-exp
+     * @return Returns S-exp as Node or null if end of input reached
+     */
     Node build() {
         Node n
         try {
@@ -57,9 +66,9 @@ class SExpressionBuilder {
     }
 
     /**
-     * Stavi S-exp nad node
-     * @param node Node nad kterym se stavi
-     * @param retCounter Po dosazeni stavu citace se vratit
+     * Builds S-exp over node
+     * @param node Node to build over
+     * @param retCounter Return if counter has this value
      * */
     private void buildOver(ListNode node, int retCounter) {
         Token t

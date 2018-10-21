@@ -9,6 +9,11 @@ import cz.bh.lisp.parser.sexp.SymbolNode
 
 import java.util.regex.Pattern
 
+/**
+ * Class for handling patterns
+ *
+ * @author Josef Baloun
+ */
 class NodeHandler {
     Pattern integerPattern
     Pattern doublePattern
@@ -20,6 +25,9 @@ class NodeHandler {
         doubleExpPattern = Pattern.compile("[+-]?\\d+([,.]\\d+)?[eE][+-]?\\d+")
     }
 
+    /**
+     * Handles unrecognized symbol
+     */
     Node handle(String val, int linePosition) {
         if (doublePattern.matcher(val).matches() || doubleExpPattern.matcher(val).matches()) {
             BigDecimal d = new BigDecimal(val.replace(',', '.'))
@@ -35,6 +43,9 @@ class NodeHandler {
         return new SymbolNode(val, linePosition)
     }
 
+    /**
+     * Handles class input
+     */
     ClassNode handleClass(String val, int linePosition) {
         Class c
         try {

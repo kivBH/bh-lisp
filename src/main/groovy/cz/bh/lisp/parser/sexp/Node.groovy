@@ -1,5 +1,8 @@
 package cz.bh.lisp.parser.sexp
 
+/** Abstract class for building S-exp
+ * @author Josef Baloun
+ */
 abstract class Node<T> {
     final T val
     final int line

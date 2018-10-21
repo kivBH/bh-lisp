@@ -1,5 +1,11 @@
 package cz.bh.lisp.parser.sexp
 
+/**
+ * Class representing list
+ * Node that contains child Nodes
+ *
+ * @author Josef Baloun
+ */
 class ListNode extends Node<ArrayList<Node>>{
     ListNode(int line) {
         super(new ArrayList<Node>(), line)

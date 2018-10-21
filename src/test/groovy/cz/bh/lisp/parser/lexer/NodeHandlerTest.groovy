@@ -8,6 +8,9 @@ import cz.bh.lisp.parser.sexp.SymbolNode
 import org.junit.Before
 import org.junit.Test
 
+/**
+ * @author Josef Baloun
+ */
 class NodeHandlerTest {
     NodeHandler nodeHandler
 

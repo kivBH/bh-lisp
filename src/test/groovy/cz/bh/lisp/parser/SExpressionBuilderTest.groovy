@@ -5,6 +5,9 @@ import cz.bh.lisp.parser.exceptions.ParserException
 import cz.bh.lisp.parser.sexp.*
 import org.junit.Test
 
+/**
+ * @author Josef Baloun
+ */
 class SExpressionBuilderTest {
     String s
     Reader r

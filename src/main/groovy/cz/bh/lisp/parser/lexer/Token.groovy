@@ -2,6 +2,11 @@ package cz.bh.lisp.parser.lexer
 
 import cz.bh.lisp.parser.sexp.Node
 
+/**
+ * Class representing token.
+ *
+ * @author Josef Baloun
+ */
 class Token {
     final TokenType type
     final Node node
