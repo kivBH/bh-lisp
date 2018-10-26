@@ -3,8 +3,8 @@ package cz.bh.lisp.lib.bindings
 import cz.bh.lisp.interpreter.Context
 import cz.bh.lisp.interpreter.Interpreter
 import cz.bh.lisp.lib.NativeMacro
-import cz.bh.lisp.lib.Nil
 import cz.bh.lisp.lib.Preconditions
+import cz.bh.lisp.lib.UserDefinedFunction
 import cz.bh.lisp.parser.sexp.Node
 
 /**
@@ -32,7 +32,7 @@ class Defn extends NativeMacro {
         List<Node> params = Preconditions.requireListLiteralNodeForBindingParameterMultipleOf(parameters.get(1), 1)
         Node body = parameters.get(2)
 
-        def func = new UserDefinedFunction(funcName, params, body)
+        def func = new UserDefinedFunction(params, body)
         context.getRootContext().setValue(funcName, func)
         return func
     }

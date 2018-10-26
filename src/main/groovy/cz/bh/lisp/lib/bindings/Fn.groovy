@@ -4,6 +4,7 @@ import cz.bh.lisp.interpreter.Context
 import cz.bh.lisp.interpreter.Interpreter
 import cz.bh.lisp.lib.NativeMacro
 import cz.bh.lisp.lib.Preconditions
+import cz.bh.lisp.lib.UserDefinedFunction
 import cz.bh.lisp.parser.sexp.Node
 
 /**
@@ -30,6 +31,6 @@ class Fn extends NativeMacro {
         List<Node> params = Preconditions.requireListLiteralNodeForBindingParameterMultipleOf(parameters.first(), 1)
         Node body = parameters.get(1)
 
-        return new UserDefinedFunction(null, params, body)
+        return new UserDefinedFunction(params, body)
     }
 }

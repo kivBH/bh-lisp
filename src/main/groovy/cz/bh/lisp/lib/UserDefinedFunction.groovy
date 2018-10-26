@@ -1,4 +1,4 @@
-package cz.bh.lisp.lib.bindings
+package cz.bh.lisp.lib
 
 import cz.bh.lisp.interpreter.Context
 import cz.bh.lisp.interpreter.Executable
@@ -12,20 +12,12 @@ import cz.bh.lisp.parser.sexp.Node
  * @author Josef Baloun
  */
 class UserDefinedFunction implements Executable {
-    String name
-    List<String> paramNames
-    Node body
+    final List<String> paramNames
+    final Node body
 
-    UserDefinedFunction(String name, List<Node> params, Node body) {
-        this.name = name
+    UserDefinedFunction(List<Node> params, Node body) {
         this.body = body
-        paramNames = new ArrayList<String>(params.size())
-
-        Iterator<Node> it = params.iterator()
-        while (it.hasNext()) {
-            String symbolName = Preconditions.requireSymbolNodeForBinding(it.next())
-            paramNames.add(symbolName)
-        }
+        paramNames = params.collect { Preconditions.requireSymbolNodeForBinding(it) }
     }
 
     @Override
@@ -47,8 +39,7 @@ class UserDefinedFunction implements Executable {
     @Override
     public String toString() {
         return "UserDefinedFunction{" +
-                "name='" + name + '\'' +
-                ", paramNames=" + paramNames +
+                "paramNames=" + paramNames +
                 ", body=" + body +
                 '}'
     }

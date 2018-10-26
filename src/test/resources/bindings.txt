@@ -60,9 +60,9 @@ yx>> nil
 >> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'defn', on line: 25:
     java.lang.IllegalArgumentException: Expecting binding parameters in list literals []
 (defn func [] 5)
->> UserDefinedFunction{name='func', paramNames=[], body=5}
+>> UserDefinedFunction{paramNames=[], body=5}
 func
->> UserDefinedFunction{name='func', paramNames=[], body=5}
+>> UserDefinedFunction{paramNames=[], body=5}
 (func)
 >> 5
 (func 5)
@@ -75,7 +75,7 @@ func
 >> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'fn', on line: 32:
     java.lang.IllegalArgumentException: Expecting binding parameters in list literals []
 (fn [] "x")
->> UserDefinedFunction{name='null', paramNames=[], body="x"}
+>> UserDefinedFunction{paramNames=[], body="x"}
 ((fn [x] x) "text")
 >> text
 ((fn [x] x))
@@ -85,13 +85,13 @@ func
 ((def say-hello (fn [name]   (str "Hello " name))) "pepe")
 >> Hello pepe
 say-hello
->> UserDefinedFunction{name='null', paramNames=[name], body=(str "Hello " name)}
+>> UserDefinedFunction{paramNames=[name], body=(str "Hello " name)}
 (say-hello "pepe")
 >> Hello pepe
 ((defn foo [a a c] (* a c)) 1 2 3)
 >> 6
 (defn foo2 [a a c] (* a c))
->> UserDefinedFunction{name='foo2', paramNames=[a, a, c], body=(* a c)}
+>> UserDefinedFunction{paramNames=[a, a, c], body=(* a c)}
 (foo2 1 2 3)
 >> 6
 
