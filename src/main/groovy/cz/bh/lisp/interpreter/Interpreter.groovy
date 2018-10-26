@@ -79,12 +79,7 @@ class Interpreter {
         def firstNode = node.val.first()
         def evaluatedFirstNode = eval(firstNode, context)
         if (evaluatedFirstNode instanceof Executable) {
-            List<Node> parameters
-            if (node.val.size() == 1) {
-                parameters = Collections.emptyList()
-            } else {
-                parameters = node.val.drop(1)
-            }
+            List<Node> parameters = node.val.drop(1)
             try {
                 return evaluatedFirstNode.execute(this, context, parameters)
             } catch (ExitException e) {
