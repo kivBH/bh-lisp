@@ -1,8 +1,7 @@
 package cz.bh.lisp.parser.lexer
 
 
-import cz.bh.lisp.parser.exceptions.LexerException
-import cz.bh.lisp.parser.sexp.ClassNode
+import cz.bh.lisp.parser.exceptions.ParserException
 import cz.bh.lisp.parser.sexp.Node
 import cz.bh.lisp.parser.sexp.StringNode
 import cz.bh.lisp.parser.sexp.SymbolNode
@@ -13,12 +12,23 @@ import cz.bh.lisp.parser.sexp.SymbolNode
  * @author Josef Baloun
  */
 class Lexer {
+
+    private enum BracketType {
+        LEFT("("), RIGHT(")"), LEFT_LIST("["), RIGHT_LIST("]")
+
+        String val
+
+        BracketType(String val) {
+            this.val = val
+        }
+    }
+
     Reader reader
     int line
     StringBuilder stringBuilder
     Queue<Token> tokenBuff
     NodeHandler nodeHandler
-    int bracketCounter
+    Stack<BracketType> bracketStack
 
     Lexer(Reader reader) {
         this.reader = reader
@@ -27,7 +37,7 @@ class Lexer {
         this.tokenBuff = new LinkedList<>()
         this.tokenBuff.clear()
         this.nodeHandler = new NodeHandler()
-        this.bracketCounter = 0
+        this.bracketStack = new Stack<>()
     }
 
     /**
@@ -60,6 +70,19 @@ class Lexer {
                 }
             }
             buffNextToken(tokenBuff, stringBuilder)
+        }
+
+        // EOS
+        if (!bracketStack.isEmpty()) {
+            BracketType last = bracketStack.peek()
+            BracketType expected
+            if (last == BracketType.LEFT) {
+                expected = BracketType.RIGHT
+            }
+            else {
+                expected = BracketType.RIGHT_LIST
+            }
+            throw new ParserException("Expected '" + expected.val + "'", line)
         }
 
         return null
@@ -97,17 +120,31 @@ class Lexer {
                     sb.append(c)
             }
         }
-        throw new LexerException("Input ends within a string", line)
+        throw new ParserException("Input ends within a string", line)
     }
 
-    private Token createStartListToken() {
-        bracketCounter++
-        return new Token(TokenType.START_LIST, null, line)
-    }
-
-    private Token createEndListToken() {
-        bracketCounter--
+    private Token createEndListTokenCheckBracketStack(BracketType expected) {
+        if (bracketStack.isEmpty()) {
+            throw new ParserException("Expected '" + expected.val + "'", line)
+        }
+        BracketType last = bracketStack.peek()
+        if (last != expected) {
+            throw new ParserException("Expected '" + expected.val + "', but was '" + last.val + "'", line)
+        }
+        bracketStack.pop()
         return new Token(TokenType.END_LIST, null, line)
+    }
+
+    private Token createListToken(BracketType bt) {
+        if (bt == BracketType.RIGHT) {
+            return createEndListTokenCheckBracketStack(BracketType.LEFT)
+        }
+        if (bt == BracketType.RIGHT_LIST) {
+            return createEndListTokenCheckBracketStack(BracketType.LEFT_LIST)
+        }
+        // left / left list
+        bracketStack.push(bt)
+        return new Token(TokenType.START_LIST, null, line)
     }
 
     private void buffNextToken(Queue<Token> tokenBuff, StringBuilder stringBuilder) {
@@ -119,18 +156,21 @@ class Lexer {
             // samostatny token
                 case '(':
                     tokenBuff.add(createToken(stringBuilder.toString())) // token predchazejici
-                    tokenBuff.add(createStartListToken())                // samostatny token pozdeji
+                    tokenBuff.add(createListToken(BracketType.LEFT))                // samostatny token pozdeji
                     return
                 case ')':
+                    tokenBuff.add(createToken(stringBuilder.toString()))    // token predchazejici
+                    tokenBuff.add(createListToken(BracketType.RIGHT))                     // samostatny token na pozdeji
+                    return
                 case ']':   // konec listu
                     tokenBuff.add(createToken(stringBuilder.toString()))    // token predchazejici
-                    tokenBuff.add(createEndListToken())                     // samostatny token na pozdeji
+                    tokenBuff.add(createListToken(BracketType.RIGHT_LIST))                     // samostatny token na pozdeji
                     return
 
             // list
                 case '[':
                     tokenBuff.add(createToken(stringBuilder.toString()))    // token predchazejici
-                    tokenBuff.add(createStartListToken())                   // [ na (list
+                    tokenBuff.add(createListToken(BracketType.LEFT_LIST))                   // [ na (list
                     tokenBuff.add(new Token(TokenType.NODE, new SymbolNode("list", line), line))
                     return
 
@@ -200,7 +240,7 @@ class Lexer {
                 return
             }
         }
-        throw new LexerException("Wrong @class definition", t.linePosition)
+        throw new ParserException("Wrong @class definition", t.linePosition)
     }
 
     private void eat(char end) {
@@ -220,39 +260,43 @@ class Lexer {
         if ((c = reader.read()) >= 0) {
             return c
         } else {
-            throw new LexerException("Wrong escape sequence", line)
+            throw new ParserException("Wrong escape sequence", line)
         }
     }
 
 
     /**
-     * Recover based on bracket counter
+     * Recover based on bracket stack
      * */
     void recover() {
         tokenBuff.clear()
         stringBuilder.setLength(0)
-        if (bracketCounter < 0) {   // zacnu ihned
-            bracketCounter = 0
-            return
-        }
 
-        while (bracketCounter > 0) {
+        while (!bracketStack.isEmpty()) {
             char c
             if((c = reader.read()) >= 0) {
                 switch (c) {
                     case '(':
+                        bracketStack.push(BracketType.LEFT)
+                        break
                     case '[':
-                        bracketCounter++
+                        bracketStack.push(BracketType.LEFT_LIST)
                         break
 
                     case ')':
+                        if (bracketStack.peek() == BracketType.LEFT) {
+                            bracketStack.pop()
+                        }
+                        break
                     case ']':
-                        bracketCounter--
+                        if (bracketStack.peek() == BracketType.LEFT_LIST) {
+                            bracketStack.pop()
+                        }
                         break
 
                 // retezec
                     case '"':
-                        eat('"')
+                        eat((char) '"')
                         break
 
                 // comment
@@ -267,6 +311,7 @@ class Lexer {
                 }
             }
             else {  // EOS
+                bracketStack.clear()
                 return
             }
         }

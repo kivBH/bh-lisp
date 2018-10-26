@@ -1,6 +1,6 @@
 package cz.bh.lisp.parser.lexer
 
-import cz.bh.lisp.parser.exceptions.LexerException
+import cz.bh.lisp.parser.exceptions.ParserException
 import cz.bh.lisp.parser.sexp.ClassNode
 import cz.bh.lisp.parser.sexp.DoubleNode
 import cz.bh.lisp.parser.sexp.IntegerNode
@@ -52,10 +52,10 @@ class NodeHandler {
             c = Class.forName(val)
         }
         catch (ClassNotFoundException e) {
-            throw new LexerException("Class " + val + " not found", linePosition)
+            throw new ParserException("Class " + val + " not found", linePosition)
         }
         catch (Exception e) {
-            throw new LexerException("Can not create Class object from " + val, linePosition)
+            throw new ParserException("Can not create Class object from " + val, linePosition)
         }
         return new ClassNode(c, linePosition)
     }

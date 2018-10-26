@@ -2,7 +2,6 @@ package cz.bh.lisp.parser
 
 import cz.bh.lisp.LispException
 import cz.bh.lisp.parser.exceptions.ParserException
-
 import cz.bh.lisp.parser.lexer.Lexer
 import cz.bh.lisp.parser.lexer.Token
 import cz.bh.lisp.parser.lexer.TokenType
@@ -49,14 +48,14 @@ class SExpressionBuilder {
         switch (t.type) {
             case TokenType.END_LIST:
                 counter--
-                throw new ParserException("Wrong bracket counter", t.linePosition)
+                throw new ParserException("Wrong bracket counter", t.linePosition)  // should not occur
 
             case TokenType.START_LIST:
                 counter++
                 ListNode root = new ListNode(t.linePosition)
                 buildOver(root, counter - 1)
                 if (counter != 0) {
-                    throw new ParserException("Wrong bracket counter", t.linePosition)
+                    throw new ParserException("Wrong bracket counter", t.linePosition) // should not occur
                 }
                 return root
 

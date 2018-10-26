@@ -1,6 +1,7 @@
 package cz.bh.lisp.parser.lexer
 
-import cz.bh.lisp.parser.exceptions.LexerException
+
+import cz.bh.lisp.parser.exceptions.ParserException
 import org.junit.Test
 
 /**
@@ -8,7 +9,7 @@ import org.junit.Test
  */
 class LexerTest {
 
-    @Test(expected = LexerException.class)
+    @Test(expected = ParserException.class)
     void wrongEscapeSequenceTest() {
         String s = "\\"
         Reader r = new StringReader(s)
