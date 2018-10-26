@@ -26,6 +26,7 @@ class ParametrizedTest {
                 "java-interop",
                 "parser-exceptions",
                 "lexer-exceptions",
+                "bindings",
         ]
 
         tests.collect {

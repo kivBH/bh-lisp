@@ -1,7 +1,8 @@
 package cz.bh.lisp.lib
 
-import cz.bh.lisp.parser.sexp.ListNode
+import cz.bh.lisp.parser.sexp.ListLiteralNode
 import cz.bh.lisp.parser.sexp.Node
+import cz.bh.lisp.parser.sexp.SymbolNode
 
 /**
  *
@@ -31,8 +32,8 @@ class Preconditions {
         }
     }
 
-    static List<Node> requireListNodeForBindingParameterMultipleOf(Node n, int mod) {
-        if(n instanceof ListNode) {
+    static List<Node> requireListLiteralNodeForBindingParameterMultipleOf(Node n, int mod) {
+        if(n instanceof ListLiteralNode) {
             if (n.list.size() % mod != 0) {
                 throw new IllegalArgumentException(
                         "Expected number of binding parameters is multiple of ${mod}, but was: ${n.list.size()}")
@@ -41,8 +42,17 @@ class Preconditions {
         }
         else {
             throw new IllegalArgumentException(
-                    "Expecting binding parameters")
+                    "Expecting binding parameters in list literals []")
         }
+    }
+
+    static String requireSymbolNodeForBinding(instance) {
+        if (instance instanceof SymbolNode) {
+            return instance.val
+        }
+
+        throw new IllegalArgumentException(
+                    "Symbol expected in binding, but was: ${instance.class}")
     }
 
     static <T> T requireType(instance, Class<T> clazz) {

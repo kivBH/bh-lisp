@@ -1,0 +1,24 @@
+(doc let)
+>> [[binding*] exprs*] (binding => name value) Evaluates the exprs in a lexical context given by binding and returns the value of the last. If no expressions are supplied, returns nil.
+(let)
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'let', on line: 2:
+    java.lang.IllegalArgumentException: Expected number of parameters: 1+, but was: 0
+(let())
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'let', on line: 3:
+    java.lang.IllegalArgumentException: Expecting binding parameters in list literals []
+(let[])
+>> nil
+(let [5] )
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'let', on line: 5:
+    java.lang.IllegalArgumentException: Expected number of binding parameters is multiple of 2, but was: 1
+(let [5 5] )
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'let', on line: 6:
+    java.lang.IllegalArgumentException: Symbol expected in binding, but was: class cz.bh.lisp.parser.sexp.IntegerNode
+(let [a 5] (+ a 1) (+ a 2))
+>> 7
+(let [a 5] (+ a b))
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'let', on line: 8:
+    cz.bh.lisp.LispException: Exception while evaluating function '+', on line: 8:
+    cz.bh.lisp.LispException: Symbol not defined: 'b', on line: 8
+(let [a "x"] (let [a "y"] (print a)) (print a))
+yx>> nil

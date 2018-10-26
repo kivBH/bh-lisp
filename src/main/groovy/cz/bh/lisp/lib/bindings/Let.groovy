@@ -22,8 +22,8 @@ class Let extends NativeMacro {
 
     @Override
     String getDoc() {
-        return "[(binding*) exprs*] " + System.lineSeparator() +
-                "binding => var_name var_value " + System.lineSeparator() +
+        return "[[binding*] exprs*] " +
+                "(binding => name value) " +
                 "Evaluates the exprs in a lexical context given by binding and returns the value of the last." +
                 " If no expressions are supplied, returns nil."
     }
@@ -31,12 +31,12 @@ class Let extends NativeMacro {
     @Override
     Object execute(Interpreter interpreter, Context context, List<Node> parameters) {
         Preconditions.requireParametersAtLeast(parameters, 1)
-        List<Node> bindings = Preconditions.requireListNodeForBindingParameterMultipleOf(parameters.first(), 2)
+        List<Node> bindings = Preconditions.requireListLiteralNodeForBindingParameterMultipleOf(parameters.first(), 2)
 
         Context localContext = new Context(context)
         Iterator<Node> it = bindings.iterator()
         while (it.hasNext()) {
-            String symbolName = Preconditions.requireType(it.next(), SymbolNode).val
+            String symbolName = Preconditions.requireSymbolNodeForBinding(it.next())
             def symbolValue = interpreter.eval(it.next(), localContext)
             localContext.setValue(symbolName, symbolValue)
         }
