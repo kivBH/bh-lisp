@@ -69,3 +69,9 @@
 (str 1 2 nil 3)
 (str "hello" " " "world" "!")
 (str "items: " (list 1 2 3))
+
+(doc range)
+(range)
+(range 0 10 2)
+(range "0" 10)
+(range 0 10)

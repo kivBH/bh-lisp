@@ -35,6 +35,7 @@ cz.bh.lisp.lib.collections.ContainsP
 cz.bh.lisp.lib.collections.Conj
 cz.bh.lisp.lib.collections.Assoc
 cz.bh.lisp.lib.collections.Str
+cz.bh.lisp.lib.collections.Range
 
 cz.bh.lisp.lib.meta.Doc
 cz.bh.lisp.lib.meta.Exit
