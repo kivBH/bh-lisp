@@ -1,5 +1,8 @@
 package cz.bh.lisp.lib
 
+import cz.bh.lisp.parser.sexp.ListNode
+import cz.bh.lisp.parser.sexp.Node
+
 /**
  *
  * @version 2018-10-06
@@ -25,6 +28,20 @@ class Preconditions {
         if (parameters.size() % mod != 0) {
             throw new IllegalArgumentException(
                     "Expected number of parameters is multiple of ${mod}, but was: ${parameters.size()}")
+        }
+    }
+
+    static List<Node> requireListNodeForBindingParameterMultipleOf(Node n, int mod) {
+        if(n instanceof ListNode) {
+            if (n.list.size() % mod != 0) {
+                throw new IllegalArgumentException(
+                        "Expected number of binding parameters is multiple of ${mod}, but was: ${n.list.size()}")
+            }
+            return n.list
+        }
+        else {
+            throw new IllegalArgumentException(
+                    "Expecting binding parameters")
         }
     }
 

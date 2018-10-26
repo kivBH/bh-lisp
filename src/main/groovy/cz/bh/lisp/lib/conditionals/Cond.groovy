@@ -41,6 +41,6 @@ class Cond extends NativeMacro {
             }
         }
 
-        return Nil.wrap(null)
+        return Nil.VALUE
     }
 }
