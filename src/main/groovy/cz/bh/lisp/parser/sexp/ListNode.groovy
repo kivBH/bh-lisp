@@ -6,13 +6,9 @@ package cz.bh.lisp.parser.sexp
  *
  * @author Josef Baloun
  */
-class ListNode extends Node<ArrayList<Node>>{
+class ListNode extends LNode{
     ListNode(int line) {
-        super(new ArrayList<Node>(), line)
-    }
-
-    ArrayList<Node> getList() {
-        return val
+        super(line)
     }
 
     @Override

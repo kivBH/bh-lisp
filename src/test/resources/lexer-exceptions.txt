@@ -7,7 +7,7 @@
 (@@java.lang.String)
 >> ERROR: cz.bh.lisp.parser.exceptions.ParserException: Wrong @class definition, on line: 4
 ]
->> ERROR: cz.bh.lisp.parser.exceptions.ParserException: Expected '[', on line: 5
+>> ERROR: cz.bh.lisp.parser.exceptions.ParserException: Expected '[', but was ']', on line: 5
 @@java.lang.String
 >> ERROR: cz.bh.lisp.parser.exceptions.ParserException: Wrong @class definition, on line: 6
 ()

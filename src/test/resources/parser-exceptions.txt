@@ -1,6 +1,8 @@
+[)]
+>> ERROR: cz.bh.lisp.parser.exceptions.ParserException: For ')' is expected '(' before, but was '['
 )
->> ERROR: cz.bh.lisp.parser.exceptions.ParserException: Expected '('
+>> ERROR: cz.bh.lisp.parser.exceptions.ParserException: Expected '(', but was ')', on line: 2
 ]
->> ERROR: cz.bh.lisp.parser.exceptions.ParserException: Expected '[', on line: 2
+>> ERROR: cz.bh.lisp.parser.exceptions.ParserException: Expected '[', but was ']', on line: 3
 "
->> ERROR: cz.bh.lisp.parser.exceptions.ParserException: Input ends within a string, on line: 3
+>> ERROR: cz.bh.lisp.parser.exceptions.ParserException: Input ends within a string, on line: 4

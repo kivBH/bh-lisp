@@ -123,28 +123,35 @@ class Lexer {
         throw new ParserException("Input ends within a string", line)
     }
 
-    private Token createEndListTokenCheckBracketStack(BracketType expected) {
+    private void checkBracketStack(BracketType actual, BracketType expected) {
         if (bracketStack.isEmpty()) {
-            throw new ParserException("Expected '" + expected.val + "'", line)
+            throw new ParserException("Expected '" + expected.val + "', but was '" + actual.val + "'", line)
         }
         BracketType last = bracketStack.peek()
         if (last != expected) {
-            throw new ParserException("Expected '" + expected.val + "', but was '" + last.val + "'", line)
+            throw new ParserException("For '" + actual.val + "' is expected '" + expected.val + "' before, but was '" + last.val + "'", line)
         }
         bracketStack.pop()
-        return new Token(TokenType.END_LIST, null, line)
     }
 
-    private Token createListToken(BracketType bt) {
-        if (bt == BracketType.RIGHT) {
-            return createEndListTokenCheckBracketStack(BracketType.LEFT)
+    private Token createListToken(BracketType actual) {
+        switch (actual) {
+            case BracketType.RIGHT:
+                checkBracketStack(actual, BracketType.LEFT)
+                return new Token(TokenType.END_LIST, null, line)
+
+            case BracketType.RIGHT_LIST:
+                checkBracketStack(actual, BracketType.LEFT_LIST)
+                return new Token(TokenType.END_LIST_LITERAL, null, line)
+
+            case BracketType.LEFT:
+                bracketStack.push(actual)
+                return new Token(TokenType.START_LIST, null, line)
+
+            case BracketType.LEFT_LIST:
+                bracketStack.push(actual)
+                return new Token(TokenType.START_LIST_LITERAL, null, line)
         }
-        if (bt == BracketType.RIGHT_LIST) {
-            return createEndListTokenCheckBracketStack(BracketType.LEFT_LIST)
-        }
-        // left / left list
-        bracketStack.push(bt)
-        return new Token(TokenType.START_LIST, null, line)
     }
 
     private void buffNextToken(Queue<Token> tokenBuff, StringBuilder stringBuilder) {
@@ -162,16 +169,13 @@ class Lexer {
                     tokenBuff.add(createToken(stringBuilder.toString()))    // token predchazejici
                     tokenBuff.add(createListToken(BracketType.RIGHT))                     // samostatny token na pozdeji
                     return
-                case ']':   // konec listu
+                case ']':
                     tokenBuff.add(createToken(stringBuilder.toString()))    // token predchazejici
                     tokenBuff.add(createListToken(BracketType.RIGHT_LIST))                     // samostatny token na pozdeji
                     return
-
-            // list
                 case '[':
                     tokenBuff.add(createToken(stringBuilder.toString()))    // token predchazejici
-                    tokenBuff.add(createListToken(BracketType.LEFT_LIST))                   // [ na (list
-                    tokenBuff.add(new Token(TokenType.NODE, new SymbolNode("list", line), line))
+                    tokenBuff.add(createListToken(BracketType.LEFT_LIST))
                     return
 
             // retezec

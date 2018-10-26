@@ -5,6 +5,8 @@ import cz.bh.lisp.parser.exceptions.ParserException
 import cz.bh.lisp.parser.lexer.Lexer
 import cz.bh.lisp.parser.lexer.Token
 import cz.bh.lisp.parser.lexer.TokenType
+import cz.bh.lisp.parser.sexp.LNode
+import cz.bh.lisp.parser.sexp.ListLiteralNode
 import cz.bh.lisp.parser.sexp.ListNode
 import cz.bh.lisp.parser.sexp.Node
 
@@ -39,6 +41,13 @@ class SExpressionBuilder {
         return n
     }
 
+    private LNode getLNode(TokenType t, int line) {
+        if (t == TokenType.START_LIST_LITERAL) {
+            return new ListLiteralNode(line)
+        }
+        return new ListNode(line)
+    }
+
     private Node pomBuild() {
         Token t = lexer.nextToken()
         if (t == null) {
@@ -47,12 +56,14 @@ class SExpressionBuilder {
 
         switch (t.type) {
             case TokenType.END_LIST:
+            case TokenType.END_LIST_LITERAL:
                 counter--
                 throw new ParserException("Wrong bracket counter", t.linePosition)  // should not occur
 
             case TokenType.START_LIST:
+            case TokenType.START_LIST_LITERAL:
                 counter++
-                ListNode root = new ListNode(t.linePosition)
+                LNode root = getLNode(t.type, t.linePosition)
                 buildOver(root, counter - 1)
                 if (counter != 0) {
                     throw new ParserException("Wrong bracket counter", t.linePosition) // should not occur
@@ -69,18 +80,20 @@ class SExpressionBuilder {
      * @param node Node to build over
      * @param retCounter Return if counter has this value
      * */
-    private void buildOver(ListNode node, int retCounter) {
+    private void buildOver(LNode node, int retCounter) {
         Token t
         while ((t = lexer.nextToken()) != null) {
             switch (t.type) {
                 case TokenType.START_LIST:
+                case TokenType.START_LIST_LITERAL:
                     counter++
-                    ListNode ln = new ListNode(t.linePosition)
+                    LNode ln = getLNode(t.type, t.linePosition)
                     node.list.add(ln)
                     buildOver(ln, counter - 1)
                     break
 
                 case TokenType.END_LIST:
+                case TokenType.END_LIST_LITERAL:
                     counter--
                     if (counter == retCounter) {
                         return

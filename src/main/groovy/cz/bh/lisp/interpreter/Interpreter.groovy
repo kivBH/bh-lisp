@@ -7,6 +7,7 @@ import cz.bh.lisp.parser.SExpressionBuilder
 import cz.bh.lisp.parser.sexp.ClassNode
 import cz.bh.lisp.parser.sexp.DoubleNode
 import cz.bh.lisp.parser.sexp.IntegerNode
+import cz.bh.lisp.parser.sexp.ListLiteralNode
 import cz.bh.lisp.parser.sexp.ListNode
 import cz.bh.lisp.parser.sexp.Node
 import cz.bh.lisp.parser.sexp.StringNode
@@ -55,6 +56,8 @@ class Interpreter {
 
     def eval(Node node, Context context) {
         switch (node) {
+            case ListLiteralNode:
+                return handleList(context, ((ListLiteralNode)node).convertToListNode())
             case ListNode:
                 return handleList(context, node as ListNode)
             case SymbolNode:

@@ -68,9 +68,17 @@ class SExpressionBuilderTest {
     }
 
     @Test
-    void listTest() {
+    void listLiteralTest() {
         build('[1 2]')
-        assert n instanceof ListNode
+        assert n instanceof ListLiteralNode
+        assert n.val.size() == 2
+    }
+
+    @Test
+    void listLiteralConvertToListNodeTest() {
+        build('[1 2]')
+        assert n instanceof ListLiteralNode
+        n = n.convertToListNode()
         assert n.val.size() == 3
         n = n.val.get(0)
         assert n.val == "list"
@@ -115,5 +123,15 @@ class SExpressionBuilderTest {
     @Test(expected = ParserException.class)
     void classWrongTest() {
         build('@(123)')
+    }
+
+    @Test(expected = ParserException.class)
+    void wrongBracket1() {
+        build('(]')
+    }
+
+    @Test(expected = ParserException.class)
+    void wrongBracket2() {
+        build('[)')
     }
 }
