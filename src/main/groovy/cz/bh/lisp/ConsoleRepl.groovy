@@ -8,7 +8,7 @@ import cz.bh.lisp.parser.sexp.Node
 
 /**
  *
- * @version 2018-10-13
+ * @version 2018-10-26
  * @author Patrik Harag
  */
 class ConsoleRepl {
@@ -17,20 +17,34 @@ class ConsoleRepl {
         def interpreter = createInterpreter(writer)
 
         BufferedReader br = new BufferedReader(reader)
-        String input
-        while ((input = br.readLine()) != null && input != 'exit') {
-            interpreter.eval(input)
-        }
 
-        // TODO: dělat to podle závorek, ne podle newline
-        /*
-        def builder = new StringBuilder()
-        int next
-        while ((next = reader.read()) != -1) {
-            if (next == ')' as char) {
+        int brackets = 0
+        String input = ""
+        String line
+        while ((line = br.readLine()) != null) {
+            input += "\n" + line
+            line.toCharArray().each {
+                if (it == '(') {
+                    brackets++
+                } else if (it == ')') {
+                    if (brackets == 0) {
+                        // broken, but that is not our concern...
+                    } else {
+                        brackets--
+                    }
+                }
+            }
+
+            if (brackets == 0) {
+                if (input == 'exit') {
+                    break
+                }
+
+                interpreter.eval(input)
+                brackets = 0
+                input = ""
             }
         }
-        */
     }
 
     private Interpreter createInterpreter(Writer writer) {
