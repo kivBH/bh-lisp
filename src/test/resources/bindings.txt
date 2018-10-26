@@ -95,3 +95,19 @@ say-hello
 (foo2 1 2 3)
 >> 6
 
+(defn getName [] "bh")
+>> UserDefinedFunction{paramNames=[], body="bh"}
+(defn sayHello [name] (str "Hello " name))
+>> UserDefinedFunction{paramNames=[name], body=(str "Hello " name)}
+(sayHello (getName))
+>> Hello bh
+(sayHello getName)
+>> Hello UserDefinedFunction{paramNames=[], body="bh"}
+(defn sayHello [name] (str "Hello " (name)))
+>> UserDefinedFunction{paramNames=[name], body=(str "Hello " (name))}
+(sayHello getName)
+>> Hello bh
+(sayHello "xxx")
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'sayHello', on line: 50:
+    cz.bh.lisp.LispException: Exception while evaluating function 'str', on line: 48:
+    cz.bh.lisp.LispException: Function expected, but was: xxx, on line: 48

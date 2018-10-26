@@ -41,3 +41,10 @@ say-hello
 (defn foo2 [a a c] (* a c))
 (foo2 1 2 3)
 
+(defn getName [] "bh")
+(defn sayHello [name] (str "Hello " name))
+(sayHello (getName))
+(sayHello getName)
+(defn sayHello [name] (str "Hello " (name)))
+(sayHello getName)
+(sayHello "xxx")
