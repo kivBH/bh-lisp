@@ -6,7 +6,7 @@ import cz.bh.lisp.parser.sexp.SymbolNode
 
 /**
  *
- * @version 2018-10-06
+ * @version 2018-10-26
  * @author Patrik Harag
  */
 class Preconditions {
@@ -15,6 +15,13 @@ class Preconditions {
         if (parameters.size() != count) {
             throw new IllegalArgumentException(
                     "Expected number of parameters: ${count}, but was: ${parameters.size()}")
+        }
+    }
+
+    static void requireParameters(List parameters, Range<Integer> range) {
+        if (!(parameters.size() in range)) {
+            throw new IllegalArgumentException(
+                    "Expected number of parameters: ${range}, but was: ${parameters.size()}")
         }
     }
 

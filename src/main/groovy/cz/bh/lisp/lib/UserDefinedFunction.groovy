@@ -1,9 +1,8 @@
 package cz.bh.lisp.lib
 
 import cz.bh.lisp.interpreter.Context
-import cz.bh.lisp.interpreter.Executable
+import cz.bh.lisp.interpreter.HighOrderFunction
 import cz.bh.lisp.interpreter.Interpreter
-import cz.bh.lisp.lib.Preconditions
 import cz.bh.lisp.parser.sexp.Node
 
 /**
@@ -11,7 +10,7 @@ import cz.bh.lisp.parser.sexp.Node
  * @version 2018-10-26
  * @author Josef Baloun
  */
-class UserDefinedFunction implements Executable {
+class UserDefinedFunction extends HighOrderFunction {
     final List<String> paramNames
     final Node body
 
@@ -21,7 +20,7 @@ class UserDefinedFunction implements Executable {
     }
 
     @Override
-    Object execute(Interpreter interpreter, Context context, List<Node> parameters) {
+    def run(Interpreter interpreter, Context context, List parameters) {
         Preconditions.requireParameters(parameters, paramNames.size())
 
         Context localContext = new Context(context)
@@ -29,15 +28,14 @@ class UserDefinedFunction implements Executable {
         Iterator<Node> params = parameters.iterator()
 
         while (names.hasNext()) {
-            localContext.setValue(names.next(), interpreter.eval(params.next(), context))
+            localContext.setValue(names.next(), params.next())
         }
 
         return interpreter.eval(body, localContext)
     }
 
-
     @Override
-    public String toString() {
+    String toString() {
         return "UserDefinedFunction{" +
                 "paramNames=" + paramNames +
                 ", body=" + body +
