@@ -49,3 +49,5 @@ cz.bh.lisp.lib.flow.Do
 
 cz.bh.lisp.lib.bindings.Let
 cz.bh.lisp.lib.bindings.Def
+cz.bh.lisp.lib.bindings.Defn
+cz.bh.lisp.lib.bindings.Fn

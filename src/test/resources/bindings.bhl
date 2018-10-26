@@ -20,4 +20,24 @@
 (def b 2 c a)
 (+ a b c)
 
+(doc defn)
+(defn 5 5 5)
+(defn func 5 5)
+(defn func [] 5)
+func
+(func)
+(func 5)
+
+(doc fn)
+(fn 5 5)
+(fn [] "x")
+((fn [x] x) "text")
+((fn [x] x))
+
+((def say-hello (fn [name]   (str "Hello " name))) "pepe")
+say-hello
+(say-hello "pepe")
+((defn foo [a a c] (* a c)) 1 2 3)
+(defn foo2 [a a c] (* a c))
+(foo2 1 2 3)
 

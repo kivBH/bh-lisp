@@ -51,4 +51,47 @@ yx>> nil
 (+ a b c)
 >> 4
 
+(doc defn)
+>> [name [params*] body] Creates function with given name. Returns function.
+(defn 5 5 5)
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'defn', on line: 24:
+    java.lang.IllegalArgumentException: Symbol expected in binding, but was: class cz.bh.lisp.parser.sexp.IntegerNode
+(defn func 5 5)
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'defn', on line: 25:
+    java.lang.IllegalArgumentException: Expecting binding parameters in list literals []
+(defn func [] 5)
+>> UserDefinedFunction{name='func', paramNames=[], body=5}
+func
+>> UserDefinedFunction{name='func', paramNames=[], body=5}
+(func)
+>> 5
+(func 5)
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'func', on line: 29:
+    java.lang.IllegalArgumentException: Expected number of parameters: 0, but was: 1
+
+(doc fn)
+>> [[params*] body] Creates anonymous function and returns it.
+(fn 5 5)
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'fn', on line: 32:
+    java.lang.IllegalArgumentException: Expecting binding parameters in list literals []
+(fn [] "x")
+>> UserDefinedFunction{name='null', paramNames=[], body="x"}
+((fn [x] x) "text")
+>> text
+((fn [x] x))
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function, on line: 35:
+    java.lang.IllegalArgumentException: Expected number of parameters: 1, but was: 0
+
+((def say-hello (fn [name]   (str "Hello " name))) "pepe")
+>> Hello pepe
+say-hello
+>> UserDefinedFunction{name='null', paramNames=[name], body=(str "Hello " name)}
+(say-hello "pepe")
+>> Hello pepe
+((defn foo [a a c] (* a c)) 1 2 3)
+>> 6
+(defn foo2 [a a c] (* a c))
+>> UserDefinedFunction{name='foo2', paramNames=[a, a, c], body=(* a c)}
+(foo2 1 2 3)
+>> 6
 
