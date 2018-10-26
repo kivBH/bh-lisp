@@ -7,7 +7,7 @@ import cz.bh.lisp.parser.sexp.Node
  * @version 2018-10-26
  * @author Patrik Harag
  */
-abstract class SimpleFunction extends HighOrderFunction {
+abstract class SimpleFunction extends Function {
 
     @Override
     final Object execute(Interpreter interpreter, Context context, List<Node> parameters) {

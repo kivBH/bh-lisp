@@ -1,9 +1,9 @@
 package cz.bh.lisp.lib.collections
 
 import cz.bh.lisp.interpreter.Context
-import cz.bh.lisp.interpreter.HighOrderFunction
+import cz.bh.lisp.interpreter.Function
 import cz.bh.lisp.interpreter.Interpreter
-import cz.bh.lisp.lib.NativeHighOrderFunction
+import cz.bh.lisp.lib.NativeFunction
 import cz.bh.lisp.lib.Preconditions
 
 /**
@@ -12,7 +12,7 @@ import cz.bh.lisp.lib.Preconditions
  * @version 2018-10-26
  * @author Patrik Harag
  */
-class Reduce extends NativeHighOrderFunction {
+class Reduce extends NativeFunction {
 
     @Override
     String getSymbol() {
@@ -30,7 +30,7 @@ class Reduce extends NativeHighOrderFunction {
     def run(Interpreter interpreter, Context context, List parameters) {
         Preconditions.requireParameters(parameters, 2..3)
 
-        def f = Preconditions.requireType(parameters[0], HighOrderFunction)
+        def f = Preconditions.requireType(parameters[0], Function)
         if (parameters.size() == 2) {
             def coll = Preconditions.requireType(parameters[1], Collection)
             return coll.inject { acc, i -> f.run(interpreter, context, [acc, i]) }

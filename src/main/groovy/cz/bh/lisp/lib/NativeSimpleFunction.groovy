@@ -1,13 +1,13 @@
 package cz.bh.lisp.lib
 
-import cz.bh.lisp.interpreter.HighOrderFunction
+import cz.bh.lisp.interpreter.SimpleFunction
 
 /**
  *
- * @version 2018-10-13
+ * @version 2018-10-26
  * @author Patrik Harag
  */
-abstract class NativeHighOrderFunction extends HighOrderFunction implements Definition, Documented {
+abstract class NativeSimpleFunction extends SimpleFunction implements Definition, Documented {
 
     @Override
     abstract String getSymbol()

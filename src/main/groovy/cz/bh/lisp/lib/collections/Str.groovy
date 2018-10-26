@@ -1,6 +1,6 @@
 package cz.bh.lisp.lib.collections
 
-import cz.bh.lisp.lib.NativeFunction
+import cz.bh.lisp.lib.NativeSimpleFunction
 import cz.bh.lisp.lib.Nil
 
 /**
@@ -9,7 +9,7 @@ import cz.bh.lisp.lib.Nil
  * @version 2018-10-06
  * @author Patrik Harag
  */
-class Str extends NativeFunction {
+class Str extends NativeSimpleFunction {
 
     @Override
     String getSymbol() {

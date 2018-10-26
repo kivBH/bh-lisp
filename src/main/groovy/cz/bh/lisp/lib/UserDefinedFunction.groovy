@@ -1,7 +1,7 @@
 package cz.bh.lisp.lib
 
 import cz.bh.lisp.interpreter.Context
-import cz.bh.lisp.interpreter.HighOrderFunction
+import cz.bh.lisp.interpreter.Function
 import cz.bh.lisp.interpreter.Interpreter
 import cz.bh.lisp.parser.sexp.Node
 
@@ -10,7 +10,7 @@ import cz.bh.lisp.parser.sexp.Node
  * @version 2018-10-26
  * @author Josef Baloun
  */
-class UserDefinedFunction extends HighOrderFunction {
+class UserDefinedFunction extends Function {
     final List<String> paramNames
     final Node body
 

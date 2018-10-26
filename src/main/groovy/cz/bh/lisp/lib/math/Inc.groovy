@@ -1,6 +1,6 @@
 package cz.bh.lisp.lib.math
 
-import cz.bh.lisp.lib.NativeFunction
+import cz.bh.lisp.lib.NativeSimpleFunction
 import cz.bh.lisp.lib.Preconditions
 
 /**
@@ -9,7 +9,7 @@ import cz.bh.lisp.lib.Preconditions
  * @version 2018-10-06
  * @author Patrik Harag
  */
-class Inc extends NativeFunction {
+class Inc extends NativeSimpleFunction {
 
     @Override
     String getSymbol() {

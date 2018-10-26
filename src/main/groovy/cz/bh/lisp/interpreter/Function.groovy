@@ -4,10 +4,10 @@ import cz.bh.lisp.parser.sexp.Node
 
 /**
  *
- * @version 2018-10-13
+ * @version 2018-10-26
  * @author Patrik Harag
  */
-abstract class HighOrderFunction implements Executable {
+abstract class Function implements Executable {
 
     @Override
     Object execute(Interpreter interpreter, Context context, List<Node> parameters) {

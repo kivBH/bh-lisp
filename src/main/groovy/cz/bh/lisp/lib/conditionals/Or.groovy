@@ -1,6 +1,6 @@
 package cz.bh.lisp.lib.conditionals
 
-import cz.bh.lisp.lib.NativeFunction
+import cz.bh.lisp.lib.NativeSimpleFunction
 import cz.bh.lisp.lib.Preconditions
 
 /**
@@ -9,7 +9,7 @@ import cz.bh.lisp.lib.Preconditions
  * @version 2018-10-12
  * @author Patrik Harag
  */
-class Or extends NativeFunction {
+class Or extends NativeSimpleFunction {
 
     @Override
     String getSymbol() {

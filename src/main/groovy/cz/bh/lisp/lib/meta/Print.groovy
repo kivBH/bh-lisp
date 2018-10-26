@@ -2,7 +2,7 @@ package cz.bh.lisp.lib.meta
 
 import cz.bh.lisp.interpreter.Context
 import cz.bh.lisp.interpreter.Interpreter
-import cz.bh.lisp.lib.NativeHighOrderFunction
+import cz.bh.lisp.lib.NativeFunction
 import cz.bh.lisp.lib.Nil
 
 /**
@@ -11,7 +11,7 @@ import cz.bh.lisp.lib.Nil
  * @version 2018-10-13
  * @author Patrik Harag
  */
-class Print extends NativeHighOrderFunction {
+class Print extends NativeFunction {
 
     @Override
     String getSymbol() {

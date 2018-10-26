@@ -1,6 +1,6 @@
 package cz.bh.lisp.lib.collections
 
-import cz.bh.lisp.lib.NativeFunction
+import cz.bh.lisp.lib.NativeSimpleFunction
 
 /**
  * Defines the {@code list} function.
@@ -8,7 +8,7 @@ import cz.bh.lisp.lib.NativeFunction
  * @version 2018-10-06
  * @author Patrik Harag
  */
-class _List extends NativeFunction {
+class _List extends NativeSimpleFunction {
 
     @Override
     String getSymbol() {

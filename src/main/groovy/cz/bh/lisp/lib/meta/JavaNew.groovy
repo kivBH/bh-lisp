@@ -1,6 +1,6 @@
 package cz.bh.lisp.lib.meta
 
-import cz.bh.lisp.lib.NativeFunction
+import cz.bh.lisp.lib.NativeSimpleFunction
 import cz.bh.lisp.lib.Nil
 import cz.bh.lisp.lib.Preconditions
 
@@ -10,7 +10,7 @@ import cz.bh.lisp.lib.Preconditions
  * @version 2018-10-14
  * @author Patrik Harag
  */
-class JavaNew extends NativeFunction {
+class JavaNew extends NativeSimpleFunction {
 
     @Override
     String getSymbol() {

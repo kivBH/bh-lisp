@@ -1,9 +1,9 @@
 package cz.bh.lisp.lib.collections
 
 import cz.bh.lisp.interpreter.Context
-import cz.bh.lisp.interpreter.HighOrderFunction
+import cz.bh.lisp.interpreter.Function
 import cz.bh.lisp.interpreter.Interpreter
-import cz.bh.lisp.lib.NativeHighOrderFunction
+import cz.bh.lisp.lib.NativeFunction
 import cz.bh.lisp.lib.Preconditions
 
 /**
@@ -12,7 +12,7 @@ import cz.bh.lisp.lib.Preconditions
  * @version 2018-10-26
  * @author Patrik Harag
  */
-class _Map extends NativeHighOrderFunction {
+class _Map extends NativeFunction {
 
     @Override
     String getSymbol() {
@@ -31,7 +31,7 @@ class _Map extends NativeHighOrderFunction {
     def run(Interpreter interpreter, Context context, List parameters) {
         Preconditions.requireParametersAtLeast(parameters, 2)
 
-        def f = Preconditions.requireType(parameters[0], HighOrderFunction)
+        def f = Preconditions.requireType(parameters[0], Function)
         def iterators = parameters.drop(1).collect {
             Preconditions.requireType(it, Collection).iterator()
         }
