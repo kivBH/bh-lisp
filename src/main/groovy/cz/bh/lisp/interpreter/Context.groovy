@@ -28,4 +28,12 @@ class Context {
         return (value == null && parentContext) ? parentContext.getValue(symbol) : value
     }
 
+    Context getRootContext() {
+        Context c = this
+        while (c.parentContext != null) {
+            c = c.parentContext
+        }
+        return c
+    }
+
 }

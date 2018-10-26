@@ -22,3 +22,33 @@
     cz.bh.lisp.LispException: Symbol not defined: 'b', on line: 8
 (let [a "x"] (let [a "y"] (print a)) (print a))
 yx>> nil
+
+(doc def)
+>> [binding+] (binding => name value) Creates a global variable given by binding and returns the value of the last.
+(def)
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'def', on line: 12:
+    java.lang.IllegalArgumentException: Expected number of parameters: 2+, but was: 0
+(def ())
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'def', on line: 13:
+    java.lang.IllegalArgumentException: Expected number of parameters: 2+, but was: 1
+(def () ())
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'def', on line: 14:
+    java.lang.IllegalArgumentException: Symbol expected in binding, but was: class cz.bh.lisp.parser.sexp.ListNode
+(def a ())
+>> nil
+(def a (+ 1 2))
+>> 3
+(def a 1 b)
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'def', on line: 17:
+    java.lang.IllegalArgumentException: Expected number of parameters is multiple of 2, but was: 3
+(def a b)
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'def', on line: 18:
+    cz.bh.lisp.LispException: Symbol not defined: 'b', on line: 18
+(def a 1)
+>> 1
+(def b 2 c a)
+>> 1
+(+ a b c)
+>> 4
+
+

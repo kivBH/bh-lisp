@@ -7,3 +7,17 @@
 (let [a 5] (+ a 1) (+ a 2))
 (let [a 5] (+ a b))
 (let [a "x"] (let [a "y"] (print a)) (print a))
+
+(doc def)
+(def)
+(def ())
+(def () ())
+(def a ())
+(def a (+ 1 2))
+(def a 1 b)
+(def a b)
+(def a 1)
+(def b 2 c a)
+(+ a b c)
+
+
