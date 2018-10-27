@@ -8,6 +8,8 @@ It runs on the Java virtual machine and is tightly integrated with Java.
 ## Features
 * Dynamic type checking 
 * Automatic conversion of numeric types (follows [Groovy's conversion scheme](http://docs.groovy-lang.org/latest/html/documentation/core-syntax.html#_math_operations))
+* Java interoperability
+* Poor performance
 
 ## Build & Run
 Preconditions: Java 8+ (JDK), Gradle
