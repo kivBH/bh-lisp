@@ -27,6 +27,7 @@ class ParametrizedTest {
                 "parser-exceptions",
                 "lexer-exceptions",
                 "bindings",
+                "examples",
         ]
 
         tests.collect {

@@ -1,0 +1,43 @@
+(defn fact [a]
+    (if (< a 0)
+    ; err
+        nil
+    ; else
+        (if (> a 1)
+            (* a (fact (- a 1)))
+            1
+        )
+    )
+)
+>> UserDefinedFunction{paramNames=[a], body=(if (< a 0) nil (if (> a 1) (* a (fact (- a 1))) 1))}
+
+(fact 15)
+>> 1307674368000
+(fact 3)
+>> 6
+(fact 0)
+>> 1
+(fact -3)
+>> nil
+
+(defn fact2 [a] (fact a))
+>> UserDefinedFunction{paramNames=[a], body=(fact a)}
+(defn fact3 [a] (fact2 a))
+>> UserDefinedFunction{paramNames=[a], body=(fact2 a)}
+(defn fact4 [a] (fact3 a))
+>> UserDefinedFunction{paramNames=[a], body=(fact3 a)}
+(defn fact5 [a] (fact4 a))
+>> UserDefinedFunction{paramNames=[a], body=(fact4 a)}
+
+(fact5 3)
+>> 6
+
+(fact5 "hello")
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'fact5', on line: 25:
+    cz.bh.lisp.LispException: Exception while evaluating function 'fact4', on line: 21:
+    cz.bh.lisp.LispException: Exception while evaluating function 'fact3', on line: 20:
+    cz.bh.lisp.LispException: Exception while evaluating function 'fact2', on line: 19:
+    cz.bh.lisp.LispException: Exception while evaluating function 'fact', on line: 18:
+    cz.bh.lisp.LispException: Exception while evaluating function 'if', on line: 2:
+    cz.bh.lisp.LispException: Exception while evaluating function '<', on line: 2:
+    java.lang.IllegalArgumentException: Expected parameter type: class java.lang.Number, but was: class java.lang.String

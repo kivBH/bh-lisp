@@ -1,0 +1,25 @@
+(defn fact [a]
+    (if (< a 0)
+    ; err
+        nil
+    ; else
+        (if (> a 1)
+            (* a (fact (- a 1)))
+            1
+        )
+    )
+)
+
+(fact 15)
+(fact 3)
+(fact 0)
+(fact -3)
+
+(defn fact2 [a] (fact a))
+(defn fact3 [a] (fact2 a))
+(defn fact4 [a] (fact3 a))
+(defn fact5 [a] (fact4 a))
+
+(fact5 3)
+
+(fact5 "hello")
