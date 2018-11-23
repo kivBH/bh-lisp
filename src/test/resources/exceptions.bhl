@@ -1,0 +1,30 @@
+(doc try)
+(try)
+(try (/ 5 0))
+(try (finally (print "xxx")))
+(try (catch @java.lang.ArithmeticException e (print e)))
+
+(try (/ 5 0) (catch @java.lang.ArithmeticException e 1) (finally (print "exception occured")))
+
+(try (/ 5 0) (finally (print "xxx")))
+
+(try (/ 5 0) (catch @java.lang.ArithmeticException e))
+
+(try (/ 5 0) (catch @java.lang.ArithmeticException e e))
+
+(try (/ 5 0) (catch @java.lang.ArithmeticException e nil))
+
+
+
+(doc throw)
+(throw)
+(throw a d)
+(throw e)
+(throw "hello")
+
+(/ 5 0)
+(try (/ 5 0) (catch @java.lang.ArithmeticException e (throw e)))
+
+(try (+ (/ (+ 5 1) 0) 5) (catch @java.lang.ArithmeticException e nil))
+
+(try (throw "hello") (catch @cz.bh.lisp.LispException e (. getMessage e)))

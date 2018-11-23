@@ -54,3 +54,6 @@ cz.bh.lisp.lib.bindings.Let
 cz.bh.lisp.lib.bindings.Def
 cz.bh.lisp.lib.bindings.Defn
 cz.bh.lisp.lib.bindings.Fn
+
+cz.bh.lisp.lib.exceptions.Try
+cz.bh.lisp.lib.exceptions.Throw
