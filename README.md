@@ -84,6 +84,8 @@ Executing finally...
 >> Division by zero
 ```
 
+More examples can be found in [tests](src/test/resources/).
+
 ## Runtime Library
 ### Math
 | Name | Description |
