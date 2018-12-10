@@ -11,6 +11,79 @@ It runs on the Java virtual machine and is tightly integrated with Java.
 * Java interoperability
 * Poor performance
 
+## Examples
+```clojure
+; factorial using recursion
+(defn fact-1 [a]
+    (if (> a 1)
+        (* a (fact-1 (- a 1)))
+        1))
+>> cz.bh.lisp.lib.UserDefinedFunction[a]
+(fact-1 0)
+>> 1
+(fact-1 3)
+>> 6
+(fact-1 15)
+>> 1307674368000
+(fact-1 "hello")
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'fact-1', on line: 9:
+    cz.bh.lisp.LispException: Exception while evaluating function 'if', on line: 3:
+    cz.bh.lisp.LispException: Exception while evaluating function '>', on line: 3:
+    java.lang.IllegalArgumentException: Expected parameter type: class java.lang.Number, but was: class java.lang.String
+```
+
+```clojure
+; factorial using functional programming
+(defn fact-2 [n] (reduce * 1 (range 1 (inc n))))
+>> cz.bh.lisp.lib.UserDefinedFunction[n]
+(fact-2 0)
+>> 1
+(fact-2 3)
+>> 6
+(fact-2 15)
+>> 1307674368000
+(fact-2 "hello")
+>> ERROR: cz.bh.lisp.LispException: Exception while evaluating function 'fact-2', on line: 16:
+    cz.bh.lisp.LispException: Exception while evaluating function 'reduce', on line: 12:
+    cz.bh.lisp.LispException: Exception while evaluating function 'range', on line: 12:
+    cz.bh.lisp.LispException: Exception while evaluating function 'inc', on line: 12:
+    java.lang.IllegalArgumentException: Expected parameter type: class java.lang.Number, but was: class java.lang.String
+```
+
+```clojure
+; strings
+(defn distinguish-number [n]
+    (str n " is a " (if (>= n 0) "positive" "negative") " number"))
+>> cz.bh.lisp.lib.UserDefinedFunction[n]
+(distinguish-number 10)
+>> 10 is a positive number
+(distinguish-number -5)
+>> -5 is a negative number
+```
+
+```clojure
+; Java interoperability
+(. substring "hello world" 6)
+>> world
+(* 2 (. parseInt @java.lang.Integer "21"))
+>> 42
+```
+
+```clojure
+; exceptions
+(try
+    (+ (/ (+ 5 1) 0) 5)
+    (catch @java.lang.ArithmeticException e
+        (do
+            (println "An error occurred...")
+            (. getMessage e)))
+    (finally
+        (println "Executing finally...")))
+An error occurred...
+Executing finally...
+>> Division by zero
+```
+
 ## Runtime Library
 ### Math
 | Name | Description |
