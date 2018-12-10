@@ -36,4 +36,21 @@ class Context {
         return c
     }
 
+    /**
+     * Returns shallow copy of all variables.
+     *
+     * @return
+     */
+    Map<String, Object> collectVariables() {
+        Context c = this
+        Map<String, Object> allVariables = [:]
+        while (c != null) {
+            c.variables.each {
+                allVariables.putIfAbsent(it.key, it.value)
+            }
+            c = c.parentContext
+        }
+        return allVariables
+    }
+
 }
