@@ -7,7 +7,7 @@ import cz.bh.lisp.parser.sexp.Node
 
 /**
  * User defined function.
- * @version 2018-10-26
+ * @version 2018-12-10
  * @author Josef Baloun
  */
 class UserDefinedFunction extends Function {
@@ -36,9 +36,6 @@ class UserDefinedFunction extends Function {
 
     @Override
     String toString() {
-        return "UserDefinedFunction{" +
-                "paramNames=" + paramNames +
-                ", body=" + body +
-                '}'
+        return UserDefinedFunction.name + paramNames
     }
 }

@@ -4,7 +4,7 @@ import cz.bh.lisp.interpreter.SimpleFunction
 
 /**
  *
- * @version 2018-10-26
+ * @version 2018-12-10
  * @author Patrik Harag
  */
 abstract class NativeSimpleFunction extends SimpleFunction implements Definition, Documented {
@@ -20,5 +20,10 @@ abstract class NativeSimpleFunction extends SimpleFunction implements Definition
     @Override
     Object getValue() {
         return this
+    }
+
+    @Override
+    String toString() {
+        return NativeSimpleFunction.name + "[?]"
     }
 }

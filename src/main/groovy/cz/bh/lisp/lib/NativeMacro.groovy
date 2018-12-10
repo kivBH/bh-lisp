@@ -4,7 +4,7 @@ import cz.bh.lisp.interpreter.Executable
 
 /**
  *
- * @version 2018-10-07
+ * @version 2018-12-10
  * @author Patrik Harag
  */
 abstract class NativeMacro implements Definition, Executable, Documented {
@@ -20,5 +20,10 @@ abstract class NativeMacro implements Definition, Executable, Documented {
     @Override
     Object getValue() {
         return this
+    }
+
+    @Override
+    String toString() {
+        return NativeMacro.name + "[?]"
     }
 }

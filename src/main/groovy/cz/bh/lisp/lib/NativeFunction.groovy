@@ -4,7 +4,7 @@ import cz.bh.lisp.interpreter.Function
 
 /**
  *
- * @version 2018-10-13
+ * @version 2018-12-10
  * @author Patrik Harag
  */
 abstract class NativeFunction extends Function implements Definition, Documented {
@@ -20,5 +20,10 @@ abstract class NativeFunction extends Function implements Definition, Documented
     @Override
     Object getValue() {
         return this
+    }
+
+    @Override
+    String toString() {
+        return NativeFunction.name + "[?]"
     }
 }
