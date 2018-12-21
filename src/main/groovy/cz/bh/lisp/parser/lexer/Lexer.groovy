@@ -250,7 +250,7 @@ class Lexer {
     private void eat(char end) {
         char c
         while ((c = reader.read()) >= 0) {
-            if (c == '\n') {
+            if (c == '\n' as char) {
                 line++
             }
             if (c == end) {
@@ -308,7 +308,20 @@ class Lexer {
 
                 // retezec
                     case '"':
-                        eat((char) '"')
+                        while ((c = reader.read()) >= 0) {
+                            if (c == '\n' as char) {
+                                line++
+                            }
+                            if (c == '\\' as char) {
+                                try {
+                                    getNextForEscapeSequence()
+                                }
+                                catch (ParserException e) {}    // EOS - ignore when recovering
+                            }
+                            if (c == '"' as char) {
+                                break
+                            }
+                        }
                         break
 
                 // comment
