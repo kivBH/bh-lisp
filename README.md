@@ -157,6 +157,10 @@ More examples can be found in [tests](src/test/resources/).
 | --- | --- |
 | `try` | \[body catch-clause* finally-clause?\] catch-clause => ('catch' class name body) finally-clause => ('finally' body) If an exception occurs in body and catch-clauses are provided, the first for which the thrown exception is an instance of the class is considered a matching catch-clause. Exception is stored as name.If there is no matching catch-clause, the exception propagates out of the function. If finally-clause is provided, it will be executed finally. |
 | `throw` | \[message\] or \[instance\] Throws LispException with given message or instance of Throwable. |
+### Comments
+| Name | Description |
+| --- | --- |
+| `;` | Line comment: skips the characters between `;` and `\n` |
 
 ## Build & Run
 Preconditions: Java 8+ (JDK), Gradle
