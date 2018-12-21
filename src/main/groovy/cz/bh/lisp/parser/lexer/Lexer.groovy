@@ -298,6 +298,14 @@ class Lexer {
                         }
                         break
 
+                // escape sekvence
+                    case '\\':
+                        try {
+                            getNextForEscapeSequence()
+                        }
+                        catch (ParserException e) {}    // EOS - ignore when recovering
+                        break
+
                 // retezec
                     case '"':
                         eat((char) '"')
