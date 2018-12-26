@@ -1,0 +1,7 @@
+
+; factorial using functional programming
+(defn fact [n] (reduce * 1 (range 1 (inc n))))
+
+(println "FACTORIAL")
+(println
+  (reduce (fn [acc x] (str acc (fact x) ", ")) "" (range 0 20)))

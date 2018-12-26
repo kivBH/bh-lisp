@@ -165,7 +165,17 @@ More examples can be found in [tests](src/test/resources/).
 ## Build & Run
 Preconditions: Java 8+ (JDK), Gradle
 
-```
+**Build:**
+```bash
 gradle build
+```
+
+**Run REPL:**
+```bash
 java -jar build/libs/bh-lisp-<version>.jar
+```
+
+**Run program:**
+```bash
+java -jar build/libs/bh-lisp-<version>.jar <file>
 ```
