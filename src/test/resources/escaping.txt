@@ -1,0 +1,56 @@
+(defn getName [x\ b c] "bh")
+>> cz.bh.lisp.lib.UserDefinedFunction[x b, c]
+(defn getName [c\\nx] "bh")
+>> cz.bh.lisp.lib.UserDefinedFunction[c\nx]
+
+;new line
+(defn getName [c
+x] "bh")
+>> cz.bh.lisp.lib.UserDefinedFunction[c, x]
+(defn getName [c\
+x] "bh")
+>> cz.bh.lisp.lib.UserDefinedFunction[c
+x]
+
+"\\n"
+>> \n
+"\\t"
+>> \t
+"\@"
+>> @
+"\""
+>> "
+"x\
+x"
+>> x
+x
+"x
+x"
+>> x
+x
+
+"line
+line"
+>> line
+line
+
+(print "line
+line")
+line
+line>> nil
+
+(println "line
+line")
+line
+line
+>> nil
+
+
+123
+>> 123
+1\2\.3
+>> 12.3
+1\
+23
+>> ERROR: cz.bh.lisp.LispException: Symbol not defined: '1
+23', on line: 29

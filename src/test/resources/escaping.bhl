@@ -1,0 +1,32 @@
+(defn getName [x\ b c] "bh")
+(defn getName [c\\nx] "bh")
+
+;new line
+(defn getName [c
+x] "bh")
+(defn getName [c\
+x] "bh")
+
+"\\n"
+"\\t"
+"\@"
+"\""
+"x\
+x"
+"x
+x"
+
+"line
+line"
+
+(print "line
+line")
+
+(println "line
+line")
+
+
+123
+1\2\.3
+1\
+23

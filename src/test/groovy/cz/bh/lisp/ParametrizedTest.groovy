@@ -29,6 +29,7 @@ class ParametrizedTest {
                 "bindings",
                 "examples",
                 "exceptions",
+                "escaping",
         ]
 
         tests.collect {

@@ -23,7 +23,7 @@ class Lexer {
         }
     }
 
-    Reader reader
+    ReaderWrapper reader
     int line
     StringBuilder stringBuilder
     Queue<Token> tokenBuff
@@ -31,7 +31,7 @@ class Lexer {
     Stack<BracketType> bracketStack
 
     Lexer(Reader reader) {
-        this.reader = reader
+        this.reader = new ReaderWrapper(reader)
         this.line = 1
         this.stringBuilder = new StringBuilder()
         this.tokenBuff = new LinkedList<>()
@@ -189,10 +189,6 @@ class Lexer {
                 case '\t':
                     tokenBuff.add(createToken(stringBuilder.toString()))
                     return
-
-            // ignore
-                case '\r':
-                    break
 
             // comment
                 case ';':
