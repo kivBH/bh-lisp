@@ -22,7 +22,7 @@ class ConsoleRepl {
         String input = ""
         String line
         while ((line = br.readLine()) != null) {
-            input += "\n" + line
+            input += line + "\n"
             line.toCharArray().each {
                 if (it == '(') {
                     brackets++
@@ -36,7 +36,7 @@ class ConsoleRepl {
             }
 
             if (brackets == 0) {
-                if (input == 'exit') {
+                if (line == 'exit') {
                     break
                 }
 
