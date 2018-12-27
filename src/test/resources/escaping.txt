@@ -53,4 +53,4 @@ line
 1\
 23
 >> ERROR: cz.bh.lisp.LispException: Symbol not defined: '1
-23', on line: 29
+23', on line: 32

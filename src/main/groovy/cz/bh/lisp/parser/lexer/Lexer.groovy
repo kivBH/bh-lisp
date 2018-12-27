@@ -258,6 +258,9 @@ class Lexer {
     private char getNextForEscapeSequence() {
         char c
         if ((c = reader.read()) >= 0) {
+            if (c == '\n' as char) {
+                line++
+            }
             return c
         } else {
             throw new ParserException("Wrong escape sequence", line)
