@@ -175,6 +175,12 @@ gradle build
 java -jar build/libs/bh-lisp-<version>.jar
 ```
 
+**Exit REPL:**
+```bash
+(exit 0)
+```
+Another way to exit REPL is to close input (ctrl + Z on single line should work in windows).
+
 **Run program:**
 ```bash
 java -jar build/libs/bh-lisp-<version>.jar <file>
