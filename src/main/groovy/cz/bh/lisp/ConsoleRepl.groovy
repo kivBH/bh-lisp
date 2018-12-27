@@ -18,33 +18,7 @@ class ConsoleRepl {
 
         BufferedReader br = new BufferedReader(reader)
 
-        int brackets = 0
-        String input = ""
-        String line
-        while ((line = br.readLine()) != null) {
-            input += line + "\n"
-            line.toCharArray().each {
-                if (it == '(') {
-                    brackets++
-                } else if (it == ')') {
-                    if (brackets == 0) {
-                        // broken, but that is not our concern...
-                    } else {
-                        brackets--
-                    }
-                }
-            }
-
-            if (brackets == 0) {
-                if (line == 'exit') {
-                    break
-                }
-
-                interpreter.eval(input)
-                brackets = 0
-                input = ""
-            }
-        }
+        interpreter.eval(br)
     }
 
     private Interpreter createInterpreter(Writer writer) {
